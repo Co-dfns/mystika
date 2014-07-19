@@ -4,3 +4,4 @@ X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika
 
 SHA512∆0_TEST←{X←,512 ⋄ ⍴M.SHA512 ⍬}
 SHA512∆1_TEST←{X←1 ⋄ ≢⍴M.SHA512⍬}
+SHA512∆3_TEST←{X←1 ⋄ 0 1∨.=⊂M.SHA512⍬}
