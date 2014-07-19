@@ -22,4 +22,3 @@ ut.dyalog: ut/*.cd
 at.dyalog: at/*.cd
 	echo ':Namespace at' > at.dyalog
 	bin/assemble at/*.cd >> at.dyalog
-
