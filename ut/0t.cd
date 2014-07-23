@@ -4,7 +4,7 @@ X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika
 
 SHA512∆0_TEST←{_←X ,512 ⋄ ⍴M.SHA512 ⍬}
 SHA512∆1_TEST←{_←X 1 ⋄ ≢⍴M.SHA512⍬}
-SHA512∆3_TEST←{_←X 1 ⋄ 0 1∨.=⊂M.SHA512⍬}
+SHA512∆3_TEST←{_←X 1 ⋄ ^/⊃0 1∨.=⊂M.SHA512⍬}
 SHA512∆4_TEST←{_←X 1 16 64⍴1,(895⍴0),128⍴0 ⋄ M.SHA512∆P⍬}
 SHA512∆5_TEST←{_←X 1 16 64⍴1 1,(894⍴0),(127⍴0),1 ⋄ M.SHA512∆P ,1}
 SHA512∆6_TEST←{_←X 8 64 ⋄ ⍴M.SHA512∆H0}
