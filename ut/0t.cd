@@ -3,4 +3,4 @@
 X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika ⋄ #.UT.sac←0
 
 MA_TEST←{_←X 64⍴0 ⋄ (64⍴1)(64M.MA)¯64↑1}
-
+HX_TEST←{_←X'0123456789abcdef' ⋄ M.HX ,⍉(4⍴2)⊤⍳16}
