@@ -5,7 +5,7 @@ X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika ⋄ #.UT.sac←0
 SHA512∆H1_TEST←{h←'ddaf35a193617abacc417349ae20413112e6fa4e89a97ea2'
  h,←'0a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e'
  h,←'2a9ac94fa54ca49f' ⋄ _←X h
- '0123456789abcdef'[2⊥⍉128 4⍴⎕←M.SHA512.H,⍉(8⍴2)⊤⎕UCS 'abc']}
+ '0123456789abcdef'[2⊥⍉128 4⍴M.SHA512.H,⍉(8⍴2)⊤⎕UCS 'abc']}
 SHA512∆H2_TEST←{h←'8e959b75dae313da8cf4f72814fc143f8f7779c6eb9f7fa1'
  h,←'7299aeadb6889018501d289e4900f7e4331b99dec4b5433ac7d329eeb6dd2654'
  h,←'5e96e55b874be909' ⋄ _←X h
