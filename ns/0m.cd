@@ -16,4 +16,12 @@ Z←{z←¯1⊖⍵ ⋄ z[4;]←z[4;]p(t←⊃p/(S1 4⌷⍵)(C⍵),⍺)p 0⌷z
  z[0;]←z[0;]p⊃p/(S0 1⌷⍵)(M⍵)t ⋄ z}
 :EndNamespace
 
-
+XTIMES∆H←{⍵⍴⍨2⍴⍨2⍟⍴⍵}
+XTIMES∆E←{(2*⌈2⍟¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
+XTIMES∆U←{×\1,1↓(⍵÷2)⍴¯1*2÷⍵}
+XTIMES∆F←{(⍎'⊣/⍺')∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}
+XTIMES∆FT←{,(XTIMES∆H XTIMES∆U⍴⍵)XTIMES∆F XTIMES∆H ⍵}
+XTIMES∆IFT←{(⍴⍵)÷⍨,(XTIMES∆H+XTIMES∆U⍴⍵)XTIMES∆F XTIMES∆H ⍵}
+XTIMES∆RC←{(¯1+(⍴⍺)+⍴⍵)↑XTIMES∆IFT⊃×/XTIMES∆FT¨⍺ XTIMES∆E ⍵}
+XTIMES∆C←{1↓+⌿1 0⌽0,0 2⊤⍵}
+XTIMES∆M←{(+/∧\0=t)↓t←XTIMES∆C⍣≡0,⌊0.5+9○⍺ XTIMES∆RC ⍵}
