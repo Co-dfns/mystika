@@ -14,10 +14,10 @@ SHA512∆H2_TEST←{h←'8e959b75dae313da8cf4f72814fc143f8f7779c6eb9f7fa1'
  '0123456789abcdef'[2⊥⍉128 4⍴512 M.SHA.H,⍉(8⍴2)⊤⎕UCS m]}
 SHA384∆H1_TEST←{h←'cb00753f45a35e8bb5a03d699ac65007272c32ab0eded163'
  h,←'1a8b605a43ff5bed8086072ba1e7cc2358baeca134c825a7' ⋄ _←X h
- '0123456789abcdef'[2⊥⍉128 4⍴384 M.SHA.H,⍉(8⍴2)⊤⎕UCS 'abc']}
+ '0123456789abcdef'[2⊥⍉96 4⍴384 M.SHA.H,⍉(8⍴2)⊤⎕UCS 'abc']}
 SHA384∆H2_TEST←{h←'09330c33f71147e83d192fc782cd1b4753111b173b3b05d2'
  h,←'2fa08086e3b0f712fcc7c71a557e2db966c3e9fa91746039' ⋄ _←X h
  m←'abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmn'
  m,←'hijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu'
- '0123456789abcdef'[2⊥⍉128 4⍴384 M.SHA.H,⍉(8⍴2)⊤⎕UCS m]}
+ '0123456789abcdef'[2⊥⍉96 4⍴384 M.SHA.H,⍉(8⍴2)⊤⎕UCS m]}
 
