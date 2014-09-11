@@ -1,0 +1,5 @@
+SHA256∆00_TEST←{_←X,256 ⋄ ⍴256 M.SHA.H⍬} ⋄ SHA256∆01_TEST←{_←X 1 ⋄ ≢⍴256 M.SHA.H⍬}
+SHA256∆03_TEST←{_←X 8 32 ⋄ ⍴M.SHA.H0∆256}
+SHA256∆04_TEST←{z←↑'6a09e667' 'bb67ae85' '3c6ef372' 'a54ff53a' '510e527f'
+ z⍪←↑'9b05688c' '1f83d9ab' '5be0cd19' ⋄ _←X z ⋄ M.HX⍤1⊢M.SHA.H0∆256}
+
