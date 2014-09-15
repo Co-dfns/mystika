@@ -1,6 +1,6 @@
 ⎕IO ⎕ML←0 1
 
-X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika ⋄ #.UT.sac←0
+X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika ⋄ #.UT.sac←1
 
 SHA512∆H1_TEST←{h←'ddaf35a193617abacc417349ae20413112e6fa4e89a97ea2'
  h,←'0a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e'
@@ -20,4 +20,11 @@ SHA384∆H2_TEST←{h←'09330c33f71147e83d192fc782cd1b4753111b173b3b05d2'
  m←'abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmn'
  m,←'hijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu'
  '0123456789abcdef'[2⊥⍉96 4⍴384 M.SHA.H,⍉(8⍴2)⊤⎕UCS m]}
+SHA256∆H1_TEST←{h←'ba7816bf8f01cfea414140de5dae2223b00361a396177a9c'
+ h,←'b410ff61f20015ad' ⋄ _←X h
+ '0123456789abcdef'[2⊥⍉64 4⍴256 M.SHA.H,⍉(8⍴2)⊤⎕UCS 'abc']}
+SHA256∆H2_TEST←{h←'248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167'
+ h,←'f6ecedd419db06c1' ⋄ _←X h
+ m←'abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq'
+ '0123456789abcdef'[2⊥⍉64 4⍴256 M.SHA.H,⍉(8⍴2)⊤⎕UCS m]}
 
