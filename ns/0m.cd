@@ -1,10 +1,6 @@
 ⎕IO ⎕ML←0 1
 
-C←{1↓+⌿1 0⌽0,0 2⊤⍵}
-MA←{C⍣≡⍺+⍵}
-MS←{C⍣≡((-⍴⍺)↑1)+⍺+~⍵}
 HX←{'0123456789abcdef'[2⊥⍉⍵⍴⍨4,⍨4÷⍨≢,⍵]}
-IE←{+/(∨\⍺>⍵)-(∨\⍺<⍵)}
 
 :Namespace SHA
 ⎕IO ⎕ML←0 1 ⋄ bits←256 384 512
@@ -29,13 +25,30 @@ Z←{p←##.MA ⋄ x←(¯2 ¯13 ¯22)(¯6 ¯11 ¯25) ⋄ y←(¯28 ¯34 ¯39)(�
  z[0;]←z[0;]p⊃p/(a S 0⌷⍵)(M⍵)t ⋄ z}
 :EndNamespace
 
-XTIMES∆H←{⍵⍴⍨2⍴⍨2⍟⍴⍵}
-XTIMES∆E←{(2*⌈2⍟¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
-XTIMES∆U←{×\1,1↓(⍵÷2)⍴¯1*2÷⍵}
-XTIMES∆F←{(⍎'⊣/⍺')∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}
-XTIMES∆FT←{,(XTIMES∆H XTIMES∆U⍴⍵)XTIMES∆F XTIMES∆H ⍵}
-XTIMES∆IFT←{(⍴⍵)÷⍨,(XTIMES∆H+XTIMES∆U⍴⍵)XTIMES∆F XTIMES∆H ⍵}
-XTIMES∆RC←{(¯1+(⍴⍺)+⍴⍵)↑XTIMES∆IFT⊃×/XTIMES∆FT¨⍺ XTIMES∆E ⍵}
-XTIMES∆M←{(+/∧\0=t)↓t←C⍣≡0,⌊0.5+9○⍺ XTIMES∆RC ⍵}
+⍝This big number library uses the following standards unless stated otherwise
+⍝Base B is a power of two less than or equal to 2^8
+⍝⍴⍺=⍴⍵=n, where n is the number of places in base B
+⍝⍴⍵=n m, where the base B expansions are in rows
+⍝⍺,[0.5]⍵ is used to combine vectors into a two row matrix
+⍝Uniform time
 
-I∆R←{1↓(⍵,0) MS (-1+⍴⍵)↑(-⍴⍺)↓⍺ XTIMES∆M (-⍴⍺)↓(⍵ XTIMES∆M ⍵)}
+B←2*8
+
+⍝Respectively: ≥ + - ⍀+ ⍀- 
+GE←{∧/(∨\<⌿⍵)≤∨\>⌿⍵}  ⍝⍴⍵=n 2 Out: Row 0 ≥ Row 1
+A←{1↓⊃{((B,B)⊤⍺+⊃⍵),1↓⍵}/(⍺+⍵),⊂⍬}
+S←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(⍺-⍵),⊂⍬}
+EA←{1↓⊃{((B,B)⊤⍺+⊃⍵),1↓⍵}/(+⌿⍵),⊂⍬}
+ES←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(-⌿⍵),⊂⍬}
+
+⍝Uniform time version of XTIMES. Assumes B←2*8.
+XT∆E←{(2*⌈2⍟¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
+XT∆U←{×\1,1↓(⍵÷2)⍴¯1*2÷⍵}⋄XT∆H←{⍵⍴⍨2⍴⍨2⍟⍴⍵}
+XT∆F←{(⍎'⊣/⍺')∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}
+XT∆FT←{,(XT∆H XT∆U⍴⍵)XT∆F XT∆H ⍵}
+XT∆IFT←{(⍴⍵)÷⍨,(XT∆H+XT∆U⍴⍵)XT∆F XT∆H ⍵}
+XT∆RC←{(¯1+(⍴⍺)+⍴⍵)↑XT∆IFT⊃×/XT∆FT¨⍺ XT∆E ⍵}
+XT←{EA(3-⍳4)⌽0,(4⍴B)⊤⌊0.5+9○⍺ XT∆RC ⍵}
+
+⍝Montgomery Reduction
+REDC∆N1←{B|×/B|×/3 2⍴1↓({⍵,⍨B|(4 2)*⍨⊃⍵}⍣3)⍵}⍝Assumes B←2*8
