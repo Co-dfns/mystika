@@ -38,7 +38,7 @@ B←2*8
 GE←{∧/(∨\<⌿⍵)≤∨\>⌿⍵}  ⍝⍴⍵=n 2 Out: Row 0 ≥ Row 1
 A←{1↓⊃{((B,B)⊤⍺+⊃⍵),1↓⍵}/(⍺+⍵),⊂⍬}
 S←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(⍺-⍵),⊂⍬}
-EA←{1↓⊃{((B,B)⊤⍺+⊃⍵),1↓⍵}/(+⌿⍵),⊂⍬}
+EA←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(+⌿⍵),⊂⍬}
 ES←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(-⌿⍵),⊂⍬}
 
 ⍝Uniform time version of XTIMES. Assumes B←2*8.
@@ -48,6 +48,12 @@ IFT←{(⍴⍵)÷⍨,(H+U⍴⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[�
 
 XT←{EA(3-⍳4)⌽0,(4⍴B)⊤⌊0.5+9○N↑IFT⊃×/FT¨(2*⌈2⍟N←¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
 EXT←{EA(3-⍳4)⌽0,(4⍴B)⊤⌊0.5+9○N↑IFT×⌿FT(⍤1)⍵↑[1]⍨2*⌈2⍟N←(1+×/⍴⍵)-⊃⍴⍵}
+
+⍝Newton-Raphson inverse of ⍵ to precixion ⍺
+INV0←↑{3↑(1↑⍨-N)S⍨⊃⌽({(1|d)((⊃⌽⍵),⌊d←B×⊃⍵)}⍣(N←⌈54÷2⍟B))÷⍵⍬}¨1+⍳B ⍝The value 3 depends on B 
+INV1←{(-⍺)↑(1+⍺-N)⍴INV0⌷⍨1-⍨⍵[(⍴⍵)-N←+/∨\0≠⍵]}
+E0←⌈/|1-(1+⍳B)×{+/⍵×B*-1+⍳⍴⍵}(⍤1)INV0
+INV←{⍵({(⍴⍵)↑1↓⍵ XT(2,0⍴⍨⍴⍵)S(1-⍨⍴⍺)↓⍺ XT ⍵}⍣(⌈2⍟(⍺-⍨B⍟1-E0*2)÷B⍟E0))⍺INV1⍵}
 
 ⍝Montgomery Ladder ⍺: exponent base 2, ⍵ base B, ⍺⍺ operation e.g. XT or GF256)
 ⍝Assumes the identity element has the form 0 0 .... 0 1
