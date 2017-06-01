@@ -6,6 +6,3 @@ The Mystika project seeks to deliver an industrial quality, high-performance cry
 * Safe and future-worthy cryptography only
 * Protocol level compatibility with existing standards when possible
 * Easy to use
-
-[Documentation](https://github.com/arcfide/mystika/wiki)
-
