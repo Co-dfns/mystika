@@ -1,10 +1,6 @@
-⎕IO ⎕ML←0 1
+﻿⎕IO ⎕ML←0 1
 
-C←{1↓+⌿1 0⌽0,0 2⊤⍵}
-MA←{C⍣≡⍺+⍵}
-MS←{C⍣≡((-⍴⍺)↑1)+⍺+~⍵}
 HX←{'0123456789abcdef'[2⊥⍉⍵⍴⍨4,⍨4÷⍨≢,⍵]}
-IE←{+/(∨\⍺>⍵)-(∨\⍺<⍵)}
 
 :Namespace SHA
 ⎕IO ⎕ML←0 1 ⋄ bits←256 384 512
@@ -29,13 +25,70 @@ Z←{p←##.MA ⋄ x←(¯2 ¯13 ¯22)(¯6 ¯11 ¯25) ⋄ y←(¯28 ¯34 ¯39)(�
  z[0;]←z[0;]p⊃p/(a S 0⌷⍵)(M⍵)t ⋄ z}
 :EndNamespace
 
-XTIMES∆H←{⍵⍴⍨2⍴⍨2⍟⍴⍵}
-XTIMES∆E←{(2*⌈2⍟¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
-XTIMES∆U←{×\1,1↓(⍵÷2)⍴¯1*2÷⍵}
-XTIMES∆F←{(⍎'⊣/⍺')∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}
-XTIMES∆FT←{,(XTIMES∆H XTIMES∆U⍴⍵)XTIMES∆F XTIMES∆H ⍵}
-XTIMES∆IFT←{(⍴⍵)÷⍨,(XTIMES∆H+XTIMES∆U⍴⍵)XTIMES∆F XTIMES∆H ⍵}
-XTIMES∆RC←{(¯1+(⍴⍺)+⍴⍵)↑XTIMES∆IFT⊃×/XTIMES∆FT¨⍺ XTIMES∆E ⍵}
-XTIMES∆M←{(+/∧\0=t)↓t←C⍣≡0,⌊0.5+9○⍺ XTIMES∆RC ⍵}
+⍝This big number library uses the following standards unless stated otherwise
+⍝Base B is a power of two less than or equal to 2^8
+⍝⍴⍺=⍴⍵=n, where n is the number of places in base B
+⍝⍴⍵=n m, where the base B expansions are in rows
+⍝⍺,[0.5]⍵ is used to combine vectors into a two row matrix
+⍝Uniform time
 
-I∆R←{1↓(⍵,0) MS (-1+⍴⍵)↑(-⍴⍺)↓⍺ XTIMES∆M (-⍴⍺)↓(⍵ XTIMES∆M ⍵)}
+B←2*8
+
+⍝Carrying functions
+C←{⍺←⍬⍴⍨0,1↓⍴⍵⋄0=⊃⍴⍵:1↓⍺⋄((1↓⍺)⍪⍨(⌊V÷B)⍪B|V←(1↑⍺)+¯1↑⍵)∇¯1↓⍵} ⍝Full. Works on arrays.
+
+⍝Respectively: ≥ + - ⍀+ ⍀- 
+GE←{∧/(∨\</⍵)≤∨\>/⍵}  ⍝⍴⍵=n 2 Out: Column 0 ≥ Column 1
+A←{1↓⊃{((B,B)⊤⍺+⊃⍵),1↓⍵}/(⍺+⍵),⊂⍬}
+S←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(⍺-⍵),⊂⍬}
+EA←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(+⌿⍵),⊂⍬}
+ES←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(-⌿⍵),⊂⍬}
+
+⍝Uniform time version of XTIMES.
+H←{⍵⍴⍨(2⍴⍨2⍟⊃⍴⍵),1↓⍴⍵}⋄ U←{×\1,1↓(⍵÷2)⍴*○0J2÷⍵}
+FT←{(⍴⍵)⍴(H U⊃⍴⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}H⍵}
+IFT←{(⊃⍴⍵)÷⍨(⍴⍵)⍴(H+U⊃⍴⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}H⍵}
+XT←{C 0⍪⌊0.5+9○N↑IFT⊃×[0]/FT¨(2*⌈2⍟N←¯1+(⊃⍴⍺)+⊃⍴⍵)↑¨⍺ ⍵}
+
+⍝Newton-Raphson inverse of ⍵ to precision ⍺. E0=.5
+INV0←0⍪↑{(⌊32÷2⍟B)↑(1↑⍨-N)S⍨⊃⌽({(1|d)((⊃⌽⍵),⌊d←B×⊃⍵)}⍣(N←⌈54÷2⍟B))÷⍵⍬}¨1+⍳B
+INV1←{(-⍺)↑(1+⍺-N)⍴INV0⌿⍨(⍳1+B)={(⊃⍵)+(B÷2)≤⊃⌽⍵}(⍵,0 0)/⍨∨/(⍳2+⍴⍵)∘.=(⍳2)+(⍴⍵)-N←+/∨\0≠⍵}
+INV←{⍵({(⍴⍵)↑1↓⍵ XT(2,0⍴⍨⍴⍵)S(1-⍨⍴⍺)↓⍺ XT ⍵}⍣((⌈2⍟2⍟B)+⌈2⍟⍺+1))⍺ INV1 ⍵}
+
+⍝Montgomery Ladder ⍺: exponent base 2, ⍵ base B, ⍺⍺ operation e.g. XT or GF256)
+⍝Assumes the identity element has the form 0 0 .... 0 1
+ML←{0⌷⊃(⍺⍺{(⍺⌷⍵)⍺⍺(⍤1)⍵})/(⌽⍺),⊂⍵,[¯0.5]⍨1↑⍨-⍴⍵} 
+
+⍝One step of Modular reduction used for both REDC and BMOD
+MOD←{1↓+/M×[1↓⍳1+N]⍨1 2∘.=⍨+/0=0⌷M←(0⍪⍵),[0.5-⍨N←⊃⍴⍴⍵]C 0⍪⍵+[0]⍨-⍺}
+
+⍝Montgomery reduction u×R*¯1 mod N: ⍺←N ⋄ ⍺⍺←N1 N ⋄ ⍵←u
+N1←{C-(-⍴⍵)↑MINV {⍵↑⍨-2*⌈2⍟⊃⍴⍵}(1↑⍨1+⍴⍵),[.5]0,⍵}
+REDC←{⍺MOD(⍴⍺)↑C(⍵↑⍨2×⍴⍺)+⍺ XT(-⍴⍺)↑⍺⍺ XT(-⍴⍺)↑⍵}
+
+⍝LehmerGCD
+Q←{N↑C(1↑⍨1-2×N)+¯1↓⍵[;0]XT (N←⊃⍴⍵)INV ⍵[;1]} ⍝Quotient of two columns
+L0←{0⍪⍵,[1](-⊃⍴⍵)↑1 2 2⍴∘.=⍨⍳2}
+L1←{{(B⊥2 2⍴⍵⌿⍨(⍳N)=(N←⊃⍴⍵)-+/∨\∨/∨/0≠⍵)⍪∘.=⍨⍳2}⍵⍴⍨2 2,⍨2÷⍨⊃⍴⍵}
+L2←{({=/⌊÷/M}⍣(∧/0≠(M←((2 2⍴1↑⍵)+¯2↑⍵))[;1]))0}
+L3←{⍵ +.×2 2⍴0 1 1, -(⊃⌊÷/+⌿2 2 2⍴⍵)}
+L4←{C M[;;1],[1.5]M[;;0]-(-⊃⍴⍺)↑(Q 1↓M[;0;])XT (M←⍺+.×¯2↑⍵)[;;1]}
+LGCD←{0⌷[2]{∧/⍵[;0;1]=0:⍵ ⋄ ⍵ L4({(L3⍣(L2 ⍵))⍵}⍣≡)L1 1↓⍵[;0;]}⍣≡L0 ⍵}
+
+⍝Barret Reduction: ⍺←N ⋄ ⍺⍺←(2×⍴N)INV N ⋄ ⍵←u 
+BMOD←{1↓(0,⍺)(MOD⍣2)(-1+⍴⍺)↑C⍵-((⍴⍺⍺)-⍴⍺)↓⍺ XT(-1+⍴⍺)↓⍺⍺XT⍵↓⍨1-⍴⍺}
+
+⍝Inverse of right column mod left column
+MINV←{(0,⍵[;0]){,M/⍨(⍳2)=0≠⊃M←⍵,[.5]C ⍺+⍵}2⌷[1]LGCD ⍵}
+
+⍝Modular Exponentiation using Barret reduction and the Montgomery Ladder
+BEXP←{⍺((⍺⍺{⍺⍺(⍵⍵ BMOD)⍺ XT ⍵}((⊃2×⍴⍺)INV ⍺⍺))ML) ⍵}
+
+⍝For AES
+PT←{2|⌊0.5+9○N↑IFT⊃×/FT¨(2*⌈2⍟N←¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
+PR←{⍺({1↓⍵≠(⍴⍵)↑⍺∧⊃⍵}⍣(1+⊃(⍴⍵)-⍴⍺))⍵}
+M256←⍉8 8 8⍴⊃,/,∘.{1 0 0 0 1 1 0 1 1 PR ⍺ PT ⍵}⍨,/∘.=⍨⍳8                                     
+GF256←{≠/≠/M256∧8 8 8⍴⍺∘.∧⍵}⋄Inv256←{(0,⍨7⍴1)(GF256 ML)⍵}
+Rcon←(1⌽¯8↑1)(GF256 ML⍨)(⍤1)⍉(8⍴2)⊤256⍴¯1⌽⍳255 ⍝16 16⍴⊂(⍤1)'0x',(⍤1)HX(⍤1)Rcon
+A0←3 1 2 4 0⍉{4 8 8⍴⍵(GF256⍤1)∘.=⍨⍳8}(⍤1)⍉(8⍴2)⊤(-⍳4)⌽4 4⍴2 3 1 1
+MC←{≠/≠/A0∧8 4 4 4 8⍴⍉⍵} ⍝MixColumns
