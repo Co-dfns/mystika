@@ -44,23 +44,27 @@ S←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(⍺-⍵),⊂⍬}
 EA←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(+⌿⍵),⊂⍬}
 ES←{1↓⊃{(⌊N÷B),(B|N←⍺+⊃⍵),1↓⍵}/(-⌿⍵),⊂⍬}
 
-⍝Uniform time version of XTIMES. Assumes B←2*8.
+⍝Uniform time version of XTIMES.
 H←{⍵⍴⍨(2⍴⍨2⍟⊃⍴⍵),1↓⍴⍵}⋄ U←{×\1,1↓(⍵÷2)⍴*○0J2÷⍵}
 FT←{(⍴⍵)⍴(H U⊃⍴⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}H⍵}
 IFT←{(⊃⍴⍵)÷⍨(⍴⍵)⍴(H+U⊃⍴⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}H⍵}
 XT←{C 0⍪⌊0.5+9○N↑IFT⊃×[0]/FT¨(2*⌈2⍟N←¯1+(⊃⍴⍺)+⊃⍴⍵)↑¨⍺ ⍵}
 
 ⍝Newton-Raphson inverse of ⍵ to precision ⍺. E0=.5
-INV0←0⍪↑{(32÷2⍟256)↑(1↑⍨-N)S⍨⊃⌽({(1|d)((⊃⌽⍵),⌊d←B×⊃⍵)}⍣(N←⌈54÷2⍟B))÷⍵⍬}¨1+⍳B
+INV0←0⍪↑{(⌊32÷2⍟B)↑(1↑⍨-N)S⍨⊃⌽({(1|d)((⊃⌽⍵),⌊d←B×⊃⍵)}⍣(N←⌈54÷2⍟B))÷⍵⍬}¨1+⍳B
 INV1←{(-⍺)↑(1+⍺-N)⍴INV0⌿⍨(⍳1+B)={(⊃⍵)+(B÷2)≤⊃⌽⍵}(⍵,0 0)/⍨∨/(⍳2+⍴⍵)∘.=(⍳2)+(⍴⍵)-N←+/∨\0≠⍵}
-INV←{⍵({(⍴⍵)↑1↓⍵ XT(2,0⍴⍨⍴⍵)S(1-⍨⍴⍺)↓⍺ XT ⍵}⍣((2⍟2⍟B)+⌈2⍟⍺+1))⍺ INV1 ⍵}
+INV←{⍵({(⍴⍵)↑1↓⍵ XT(2,0⍴⍨⍴⍵)S(1-⍨⍴⍺)↓⍺ XT ⍵}⍣((⌈2⍟2⍟B)+⌈2⍟⍺+1))⍺ INV1 ⍵}
 
 ⍝Montgomery Ladder ⍺: exponent base 2, ⍵ base B, ⍺⍺ operation e.g. XT or GF256)
 ⍝Assumes the identity element has the form 0 0 .... 0 1
 ML←{0⌷⊃(⍺⍺{(⍺⌷⍵)⍺⍺(⍤1)⍵})/(⌽⍺),⊂⍵,[¯0.5]⍨1↑⍨-⍴⍵} 
 
-⍝Montgomery Reduction
-REDC∆N1←{B|B-×/B|×/3 2⍴1↓({⍵,⍨B|(4 2)*⍨⊃⍵}⍣3)⍵}⍝Assumes B←2*8
+⍝One step of Modular reduction used for both REDC and BMOD
+MOD←{1↓+/M×[1↓⍳1+N]⍨1 2∘.=⍨+/0=0⌷M←(0⍪⍵),[0.5-⍨N←⊃⍴⍴⍵]C 0⍪⍵+[0]⍨-⍺}
+
+⍝Montgomery reduction u×R*¯1 mod N: ⍺←N ⋄ ⍺⍺←N1 N ⋄ ⍵←u
+N1←{C-(-⍴⍵)↑MINV {⍵↑⍨-2*⌈2⍟⊃⍴⍵}(1↑⍨1+⍴⍵),[.5]0,⍵}
+REDC←{⍺MOD(⍴⍺)↑C(⍵↑⍨2×⍴⍺)+⍺ XT(-⍴⍺)↑⍺⍺ XT(-⍴⍺)↑⍵}
 
 ⍝LehmerGCD
 Q←{N↑C(1↑⍨1-2×N)+¯1↓⍵[;0]XT (N←⊃⍴⍵)INV ⍵[;1]} ⍝Quotient of two columns
@@ -72,13 +76,13 @@ L4←{C M[;;1],[1.5]M[;;0]-(-⊃⍴⍺)↑(Q 1↓M[;0;])XT (M←⍺+.×¯2↑⍵
 LGCD←{0⌷[2]{∧/⍵[;0;1]=0:⍵ ⋄ ⍵ L4({(L3⍣(L2 ⍵))⍵}⍣≡)L1 1↓⍵[;0;]}⍣≡L0 ⍵}
 
 ⍝Barret Reduction: ⍺←N ⋄ ⍺⍺←(2×⍴N)INV N ⋄ ⍵←u 
-BMOD←{M⌷⍨1-⍨+/0=0⌷[1]M←((-2+⍴⍺)↑⍵ S((⍴⍺⍺)-⍴⍺)↓⍺ XT (-1+⍴⍺)↓⍺⍺ XT ⍵↓⍨1-⍴⍺)S(⍤1)(⍳3)∘.×(-2 + ⍴⍺)↑⍺}
+BMOD←{1↓(0,⍺)(MOD⍣2)(-1+⍴⍺)↑C⍵-((⍴⍺⍺)-⍴⍺)↓⍺ XT(-1+⍴⍺)↓⍺⍺XT⍵↓⍨1-⍴⍺}
 
 ⍝Inverse of right column mod left column
 MINV←{(0,⍵[;0]){,M/⍨(⍳2)=0≠⊃M←⍵,[.5]C ⍺+⍵}2⌷[1]LGCD ⍵}
 
 ⍝Modular Exponentiation using Barret reduction and the Montgomery Ladder
-BEXP←{⍺((⍺⍺{⍺⍺(⍵⍵ BMOD)⍺ XT ⍵}((⊃2×⍴m)INV ⍺⍺))ML) ⍵}
+BEXP←{⍺((⍺⍺{⍺⍺(⍵⍵ BMOD)⍺ XT ⍵}((⊃2×⍴⍺)INV ⍺⍺))ML) ⍵}
 
 ⍝For AES
 PT←{2|⌊0.5+9○N↑IFT⊃×/FT¨(2*⌈2⍟N←¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
