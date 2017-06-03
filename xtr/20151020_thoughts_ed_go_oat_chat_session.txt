@@ -1,0 +1,45 @@
+[23:09] arcfide: So, Tox doesn't have time stamps on this stuff, so how long ago did this group chat come in?
+[23:43] Edward Amsden: I started this one just now.
+[23:43] Edward Amsden: At 22:19 ET
+[23:43] Edward Amsden: But I'm also going to bed now. Further information on the morrow.
+[10:22] Edward Amsden: arcfide: go_oat is a friend of mine who works in bioinformatics in DC. Perhaps you could post a summary of your idea for a private/encrypted social networking tool in this thread?
+[15:39] arcfide: Ah, interesting, okay. 
+[15:39] arcfide: These ideas have been evolving quite a bit, so I don't think even you Ed, have the full picture of what I'm imaginging. 
+[15:40] arcfide: As I see it, we have a few major problems:
+[15:41] arcfide: Problem #1: Social communication at a distance, as well as knowledge work at a distance, is not private, secure, and protected. This is different from being able to provide something openly to those who should have it. It's a matter of controlling your data and your own life. We've lost the ability to independently interact in a private way. This doesn't imply anonymous. 
+[15:44] arcfide: Problem #2: Current communication and information exchange solutions are piecemeal hacks. We have systems defined by their protocols and their "intended format" rather than by the desired experience of the participants. In other words, we've lost control of the "experience" of our communications with one another. We communicate in silos of data that neither interoperate nor allow us to adequately shift and move between them. Twitter is not fundamentally different than email or instant messaging or reading a wiki except that the "experience" is different. It's the UX and View that matters for these silos, not their underlying data transmission, and we've created an ecosystem in which your data is trapped into a given experience that you have little to no control over. 
+[15:46] arcfide: Problem #3: We do not have persistant, cohesive identities in this global sphere. Like out data, we ourselves are identified by silo'd names that don't transfer well, and rely on very shaky and unstable means of connection. On more forward looking systems, even if some of the UX is unified and enables the sharing of different data across experiences, we're still out of luck when it comes to our identities. Many of them are node-locked identies. We have no concept of a distributed identity that we can access independent of whatever computing device we are on.
+[15:47] arcfide: Now, let's look at some of the observations:
+[15:48] arcfide: Observation #1: These are not unrelated problems. Without a secure and private infrastructure, it's impossible to solve P#3 correctly. Similarly with P#2. And P#2 doesn't work well if you don't have P#3 solved. In other words, you can't hope to really solve any of these without solving the others as well. 
+[15:49] arcfide: Observation #2: These problems all basically address the same problem: control. We have lost control in some sense. As an expert, we have no control over how our data is viewed, used, or consumed, by either us or others. For the novice, we have terrible defaults that lead to a feeling of safety without any actual safety. Solutions to address this have failed to deal with both the expert and the casual user. 
+[15:50] arcfide: Observation #3: The cloud is no kind of solution. Decentralization is important here. The Cloud cannot provide the security and autonomy necessary to solve these problems correctly. 
+[15:51] arcfide: Now, as I see it, there are lot's of potential systems we can learn from: 
+[15:51] arcfide: RetroShare: Protocol and View centric, lacking decentralized identity, not at all auditable, terrible UX. 
+[15:52] arcfide: Tox: Limitied capacity and scope, not audited or safe, no decentralized identity.
+[15:53] arcfide: Social Media: Lacking any form of security, good decentralized, but silo'd identity, silo'd data.
+[15:53] arcfide: Email: Protocol specific, leaky security, basically a cloud service at this point.
+[15:54] arcfide: FreeNet: Good secuirty attempts, but scaling issues, hard to get into, not accessible, geared more twoards information retrieval than information exchange and production.
+[15:55] arcfide: GnuNet is in the same range as FreeNet. 
+[15:58] arcfide: Observation #4: Programming environment and choice of core infrastructure are going to make a big difference in the ability of the code to evolve in a way that I find suitable. The biggest issue here is that most security infrastructure is written in C/C++ or some other language like this, and I do not believe this is adequate. We need more agility than this provides to move on something like this. I want a system in which Direct Programming is possible (I can explain that concept a little later) and I believe that heavily restricts the environment considerations. This could be a point of contention, but it honestly isn't an interesting project to me unless I can "get that feature."
+[15:59] arcfide: Now, there are two project that, more or less, I think really inspire this work. 
+[15:59] arcfide: Urbit: As much as the Urbivores are a bit crazy, I also find that the vision is commendable. I think they're going a bit above and beyond what we would really want though. The key things that Urbit gets right IMO, are:
+[16:00] arcfide: Urbit Insight #1: You can't decouple the development environment (Hoon, &c.) from the OS/Network. Your choice of programming language and environment matters. 
+[16:01] arcfide: Urbit Insight #2: Identity matters. Everything is tied to your identity in Urbit and it's non-negotiable. 
+[16:01] arcfide: Urbit Insight #3: Decentralized silo's that are user controlled. 
+[16:01] arcfide: Urbit Insight #4: Universal Histor/Version control 
+[16:02] arcfide: Now, the other systemI I think is super super great in regards to this is the NLS/OHS vision by Douglas Englebart:
+[16:03] arcfide: OHS Insight #1: All data should have a common meta-format that is universally and finely grained addressable at the "object" level. 
+[16:03] arcfide: OHS Insight #2: Data is separate from how we view that data, and the user should have control over how data is viewed to them. 
+[16:03] arcfide: OHS Insight #3: Expert Interfaces matter
+[16:04] arcfide: OHS Insight #4: Good knowledge work and communication requires a unified underlying capability that spans across all information exchange, from email and video conferencing to document creation. 
+[16:05] arcfide: OHS Insight #5: All data should be micro-tagged with author/time/date meta information, creating an information trail. 
+[16:07] arcfide: To these I would add the following: 
+[16:07] arcfide: Insight #1: Privacy and not anonymity is the important thing.
+[16:07] arcfide: Insight #2: User Experience is critical.
+[16:10] arcfide: Insight #3: Hierarchical may not be the best way to structure data at the core. 
+[16:11] arcfide: Now, that's the problem description and some thoughts about what a good solution would look like. 
+[16:13] arcfide: I'll say that as far as implementation goes, I don't think it's okay to just layer on top of existing library infrastructures. The goal should be to have a ground up complete development stack as far as possible for all of our security and mission-critical componenents. 
+[16:13] arcfide: So, as some level, I think we have to be at a GNUNet level, but also we have to be at the Facebook level. 
+[16:13] arcfide: To do that, I think we need an environment that let's us move forward pretty rapidly. And Ed knows exactly where this is leading in terms of Direct Development. 
+[16:14] arcfide: But there we go, that's my overall schpeal and vision. 
+[16:14] arcfide: The short version at least. 
