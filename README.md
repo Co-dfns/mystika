@@ -11,6 +11,16 @@ The Mystika project seeks to deliver an industrial quality, high-performance cry
 
 Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
 
+### Numerical Algorithms
+
+### Hashing
+
+### Cyphers
+
+### Protocols
+
+### Application Utilities
+
 ## Developer's Guide
 
 Working with the Mystika code base involves writing tests in the `tests/` directory and writing code in the `[a-z].cd` files in the root directory. Code is loaded into the `mystika` workspace using the `LOAD` function. The `UT` and `util` namespaces provide testing harness and utility function support for developers.
