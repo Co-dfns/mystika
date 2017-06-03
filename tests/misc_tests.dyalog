@@ -1,6 +1,8 @@
+﻿:Namespace misc_tests
+
 ⎕IO ⎕ML←0 1
 
-X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika ⋄ #.UT.sac←0
+X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika ⋄ #.UT.sac←1
 
 MA_TEST←{_←X 64⍴0 ⋄ (64⍴1)M.MA¯64↑1}
 MS_TEST←{_←X 0,63↑(32⍴1) ⋄ (64↑1)M.MS¯64↑32↑1}
@@ -20,8 +22,4 @@ XTIMES∆10_TEST←{_←X 8⍴1 ⋄ (4⍴1) M.XTIMES∆M (4↑1),1}
 
 I∆1_TEST←{_←X 1,¯64↑1 ⋄ (64⍴1) M.I∆R 65↑1}
 
-
-SHA384∆1_TEST←{z←↑'cbbb9d5dc1059ed8' '629a292a367cd507' '9159015a3070dd17'
- z⍪←↑'152fecd8f70e5939' '67332667ffc00b31' '8eb44a8768581511'
- z⍪←↑'db0c2e0d64f98fa7' '47b5481dbefa4fa4' ⋄ _←X z ⋄ M.HX⍤1⊢M.SHA.H0∆384}
-
+:EndNamespace
