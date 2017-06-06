@@ -25,7 +25,6 @@ tmp/
 *.if
 titlepage.xsl
 mystika.dyalog
-ut.dyalog
 at.dyalog
 aplcore
 
