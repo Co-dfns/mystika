@@ -2,7 +2,7 @@
 
 ⎕IO ⎕ML←0 1
 
-X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika ⋄ #.UT.sac←1
+X←{⊢#.UT.expect←⍵} ⋄ M←#.mystika 
 
 SHA512∆H1_TEST←{h←'ddaf35a193617abacc417349ae20413112e6fa4e89a97ea2'
  h,←'0a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e'
