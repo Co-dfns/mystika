@@ -259,7 +259,7 @@
     ∇
 
     ∇ Z←is_dir Argument;attr
-      :If 'Linux'≡5↑⊃'.'⎕WG'APLVersion'
+      :If 'Mac' 'Linux'∨.≡3 5↑¨⊂⊃'.'⎕WG'APLVersion'
           Z←'yes'≡⊃⎕CMD'test -d ',Argument,' && echo yes || echo no'
       :Else
           'gfa'⎕NA'I kernel32|GetFileAttributes* <0t'
@@ -271,7 +271,7 @@
 
 
     ∇ Z←test_files_in_dir Argument
-      :If 'Linux'≡5↑⊃'.'⎕WG'APLVersion'
+      :If 'Mac' 'Linux'∨.≡3 5↑¨⊂⊃'.'⎕WG'APLVersion'
           Z←⎕SH'find ',Argument,' -name \*_tests.dyalog'
       :Else
           #.⎕CY'files'
