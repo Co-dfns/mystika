@@ -32,12 +32,12 @@ SHA256∆H2_TEST←{h←'248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167'
 
 SHA384∆1_TEST←{z←↑'cbbb9d5dc1059ed8' '629a292a367cd507' '9159015a3070dd17'
  z⍪←↑'152fecd8f70e5939' '67332667ffc00b31' '8eb44a8768581511'
- z⍪←↑'db0c2e0d64f98fa7' '47b5481dbefa4fa4' ⋄ _←X z ⋄ M.HX⍤1⊢M.SHA.H0∆384}
+ z⍪←↑'db0c2e0d64f98fa7' '47b5481dbefa4fa4' ⋄ _←X z ⋄ M.hex⍤1⊢M.SHA.H0∆384}
 
 SHA256∆00_TEST←{_←X,256 ⋄ ⍴256 M.SHA.H⍬} ⋄ SHA256∆01_TEST←{_←X 1 ⋄ ≢⍴256 M.SHA.H⍬}
 SHA256∆03_TEST←{_←X 8 32 ⋄ ⍴M.SHA.H0∆256}
 SHA256∆04_TEST←{z←↑'6a09e667' 'bb67ae85' '3c6ef372' 'a54ff53a' '510e527f'
- z⍪←↑'9b05688c' '1f83d9ab' '5be0cd19' ⋄ _←X z ⋄ M.HX⍤1⊢M.SHA.H0∆256}
+ z⍪←↑'9b05688c' '1f83d9ab' '5be0cd19' ⋄ _←X z ⋄ M.hex⍤1⊢M.SHA.H0∆256}
 SHA256∆05_TEST←{_←X 1 16 32⍴1,(447⍴0),64⍴0 ⋄ 256 M.SHA.P⍬}
 SHA256∆06_TEST←{_←X 1 16 32⍴1 1,(446⍴0),(63⍴0),1 ⋄ 256 M.SHA.P ,1}
 
@@ -48,7 +48,7 @@ SHA512∆05_TEST←{_←X 1 16 64⍴1 1,(894⍴0),(127⍴0),1 ⋄ 512 M.SHA.P ,1
 SHA512∆06_TEST←{_←X 8 64 ⋄ ⍴M.SHA.H0∆512}
 SHA512∆07_TEST←{z←↑'6a09e667f3bcc908' 'bb67ae8584caa73b' '3c6ef372fe94f82b'
  z⍪←↑'a54ff53a5f1d36f1' '510e527fade682d1' '9b05688c2b3e6c1f' '1f83d9abfb41bd6b'
- z⍪←⍉⍪'5be0cd19137e2179' ⋄ _←X z ⋄ M.HX⍤1⊢M.SHA.H0∆512}
+ z⍪←⍉⍪'5be0cd19137e2179' ⋄ _←X z ⋄ M.hex⍤1⊢M.SHA.H0∆512}
 SHA512∆08_TEST←{_←X ¯64↑(6↑1),(5↑1),25↑1 ⋄ ¯28 ¯34 ¯39 M.SHA.S 64↑1}
 SHA512∆09_TEST←{_←X ¯64↑(4↑1),(23↑1),23↑1 ⋄ ¯14 ¯18 ¯41M.SHA.S 64↑1}
 SHA512∆10_TEST←{_←X ¯64↑(15↑7⍴1),(6↑1),(27↑1 1),(7↑6⍴1),8⍴1 ⋄
@@ -78,7 +78,7 @@ z⍪←↑'c67178f2e372532b' 'ca273eceea26619c' 'd186b8c721c0c207' 'eada7dd6cde0
 z⍪←↑'f57d4f7fee6ed178' '06f067aa72176fba' '0a637dc5a2c898a6' '113f9804bef90dae'
 z⍪←↑'1b710b35131c471b' '28db77f523047d84' '32caab7b40c72493' '3c9ebe0a15c9bebc'
 z⍪←↑'431d67c49c100d4c' '4cc5d4becb3e42b6' '597f299cfc657e2a' '5fcb6fab3ad6faec'
- z⍪←⍉⍪'6c44198c4a475817' ⋄ _←X z ⋄ M.HX⍤1⊢↑M.SHA.GK0 512}
+ z⍪←⍉⍪'6c44198c4a475817' ⋄ _←X z ⋄ M.hex⍤1⊢↑M.SHA.GK0 512}
 SHA512∆16_TEST←{_←X 8 64⍴4 64↑1 64⍴0 1 ⋄ (64⍴¨0(0 1))(512M.SHA.Z)8 64⍴0}
 SHA512∆17_TEST←{A←(34↑(3↑1),(4⍴1),0,(5⍴1),0 1,(8⍴¯4↑1 1),1),1
  A,←¯29↑1 0 1 0 0,(4⍴1),0 1 1,¯8↑1 0 0 ⋄ _←X A
