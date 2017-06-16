@@ -21,6 +21,10 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
 
 ### Application Utilities
 
+    H←{B} hex S
+
+Converts an integer array S into a hexadecimal string representing the data in row major order. Each element is assumed to represent B bits of data. If B is not provided, then the largest value in the array is used to calculate the number of bits to use per element. 
+
 ## Developer's Guide
 
 Working with the Mystika code base involves writing tests in the `tests/` directory and writing code in the `[a-z].cd` files in the root directory. Code is loaded into the `mystika` workspace using the `LOAD` function. The `UT` and `util` namespaces provide testing harness and utility function support for developers.
