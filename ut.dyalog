@@ -277,6 +277,7 @@
           #.⎕CY'files'
           Z←#.Files.Dir Argument,'\*_tests.dyalog'
           Z←(Argument,'\')∘,¨Z
+          #.⎕EX¨'CompFiles' 'Files' 'TestFiles'
       :EndIf
     ∇
 
