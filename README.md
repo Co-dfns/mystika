@@ -11,7 +11,13 @@ The Mystika project seeks to deliver an industrial quality, high-performance cry
 
 Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
 
+### Data Structures
+
 ### Numerical Algorithms
+
+    BA←B cry BA
+
+Given a bignum array BA, and the bits per place B, `cry` carries all places with truncating overflow.
 
 ### Hashing
 
