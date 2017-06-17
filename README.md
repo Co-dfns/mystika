@@ -13,6 +13,10 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
 
 ### Data Structures
 
+    BA ⍝ Bignum Array
+
+A bignum array is an array of bignums that is stored as an array of integers where the first axis is fixed to the number of places for each number. For each BA, there is a B which indicates the base of each place. This value B is not stored in BA, and must be tracked separately. 
+
 ### Numerical Algorithms
 
     BA←B cry BA
