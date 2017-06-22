@@ -1,4 +1,4 @@
-﻿:Namespace cry_tests
+:Namespace cry_tests
 
 ⎕IO ⎕ML ⎕WX←0 1 3
 
@@ -10,4 +10,5 @@ CRY∆03_TEST←{_←X 8⍴5 ⋄ 16 M.cry 8⍴5}
 CRY∆04_TEST←{_←X 8⍴0 ⋄ 16 M.cry 16,⍨7⍴15}
 CRY∆05_TEST←{_←X 32⍴15 ⋄ 16 M.cry ¯32↑¯1}
 CRY∆06_TEST←{_←X 0,⍨31⍴1⋄16 M.cry 32⍴16}
+
 :EndNamespace
