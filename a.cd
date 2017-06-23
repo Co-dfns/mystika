@@ -3,8 +3,10 @@
 Scn←{2>≢⍵:⍵ ⋄ ↑⊖⊃⍺⍺{⍵,⍨⊂(⊃⍵)⍺⍺ ⍺}⌿⊖(⊂∘⊂∘⊃,1↓⊢)⊂⍤¯1⊢⍵}
 hex←{⍺←⌈/⌈2⍟1+,⍵
  '0123456789abcdef'[2⊥⍉(⊢((4,⍨⊢)⍴(4×⊢)↑⊣)∘⌈÷∘4∘≢),⍉(⍺⍴2)⊤,⍵]}
-cry←{⍺|⊖+∘⌊∘(÷∘⍺)⍨Scn⊖⍵}
-⍝pcr←((+/1↓∘(⊢⊖⍨(⍳2)⍴⍨1↓⍴)0⍪((B|⊣)(,[0.5]⍤1)(⌊B÷⍨⊣)))⍣(32÷2⍟B))
+mta←{z⊣(0⌷z)←⍺⊣z←⍵}
+c←{f←+∘⌊∘(÷∘b) ⋄ m←⊃⍵ ⋄ b←m|⍨2*16 ⋄ m<2*16:m mta b|⊖f⍨Scn⊖⍵ 
+ m mta(b|⊢+0⍪⍨2f⌿⊢)⍣(⌈32÷2⍟b)⊢⍵}
+add←{z←⍺+⍵ ⋄ (0⌷z)←⌈/⊃¨⍺ ⍵ ⋄ c z}
 
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
@@ -15,13 +17,10 @@ cry←{⍺|⊖+∘⌊∘(÷∘⍺)⍨Scn⊖⍵}
 
 B←2*8
 
-⍝Carrying functions
-C←{⍺←⍬⍴⍨0,1↓⍴⍵⋄0=⊃⍴⍵:1↓⍺⋄((1↓⍺)⍪⍨(⌊V÷B)⍪B|V←(1↑⍺)+¯1↑⍵)∇¯1↓⍵} ⍝Full. Works on arrays.
-
 ⍝Respectively: ≥ ≤ + - +/ -/ 
 GEQ←(∧⌿(≥/[1](∨⍀(>,[.5]<)))) 
 LEQ←(∧⌿(≤/[1](∨⍀(>,[.5]<))))
-A←{C⍺+⍵}
+
 S←{C⍺-⍵}
 RA←{C+/⍵}
 RS←{C-/⍵}
