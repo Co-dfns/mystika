@@ -4,9 +4,9 @@ Scn←{2>≢⍵:⍵ ⋄ ↑⊖⊃⍺⍺{⍵,⍨⊂(⊃⍵)⍺⍺ ⍺}⌿⊖(⊂�
 hex←{⍺←⌈/⌈2⍟1+,⍵
  '0123456789abcdef'[2⊥⍉(⊢((4,⍨⊢)⍴(4×⊢)↑⊣)∘⌈÷∘4∘≢),⍉(⍺⍴2)⊤,⍵]}
 mta←{z⊣(0⌷z)←⍺⊣z←⍵}
-c←{f←+∘⌊∘(÷∘b) ⋄ m←⊃⍵ ⋄ b←m|⍨2*16 ⋄ m<2*16:m mta b|⊖f⍨Scn⊖⍵ 
+cry←{f←+∘(⌊÷∘b) ⋄ b←(2*16)|m←⊃⍵ ⋄ m<2*16:m mta b|⊖f⍨Scn⊖⍵
  m mta(b|⊢+0⍪⍨2f⌿⊢)⍣(⌈32÷2⍟b)⊢⍵}
-add←{z←⍺+⍵ ⋄ (0⌷z)←⌈/⊃¨⍺ ⍵ ⋄ c z}
+add←cry⌈∘⊃⍨∘⊃mta+
 
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
