@@ -3,10 +3,15 @@
 Scn←{2>≢⍵:⍵ ⋄ ↑⊖⊃⍺⍺{⍵,⍨⊂(⊃⍵)⍺⍺ ⍺}⌿⊖(⊂∘⊂∘⊃,1↓⊢)⊂⍤¯1⊢⍵}
 hex←{⍺←⌈/⌈2⍟1+,⍵
  '0123456789abcdef'[2⊥⍉(⊢((4,⍨⊢)⍴(4×⊢)↑⊣)∘⌈÷∘4∘≢),⍉(⍺⍴2)⊤,⍵]}
+h←{⍵⍴⍨(2⍴⍨2⍟⊃⍴⍵),1↓⍴⍵}⋄ u←{×\1,1↓(⍵÷2)⍴*○0J2÷⍵}
+fft←{(⍴⍵)⍴(h u⊃⍴⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}h⍵}
+ift←{(⊃⍴⍵)÷⍨(⍴⍵)⍴(h+u⊃⍴⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←⍬⍴⍴⍴⍺]-⌿⍵}h⍵}
 mta←{z⊣(0⌷z)←⍺⊣z←⍵}
 cry←{b←(2*16)|m←⊃⍵ ⋄ m<2*16:m mta b|⊖+∘⌊∘(÷∘b)⍨Scn⊖⍵
  m mta(b∘|+0⍪⍨1↓∘⌊÷∘b)⍣(⌈32÷2⍟b)⊢⍵}
 add←cry⌈∘⊃⍨∘⊃mta+
+sub←cry⌈∘⊃⍨∘⊃mta-
+mul←{cry((⊃⍺)⌈⊃⍵)⍪⌊0.5+9○(1-≢⍵)↑N↑ift⊃×/fft¨(-2*⌈2⍟N←¯3+(≢⍺)+≢⍵)↑¨1↓¨⍺ ⍵}
 
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
