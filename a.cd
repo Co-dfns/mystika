@@ -13,10 +13,6 @@ add←cry⌈∘⊃⍨∘⊃mta+
 sub←cry⌈∘⊃⍨∘⊃mta-
 mul←{cry((⊃⍺)⌈⊃⍵)⍪⌊0.5+9○(1-≢⍵)↑N↑ift⊃×/fft¨(-2*⌈2⍟N←¯3+(≢⍺)+≢⍵)↑¨1↓¨⍺ ⍵}
 
-
-
-
-
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
 ⍝⍴⍺=⍴⍵=n, where n is the number of places in base B
