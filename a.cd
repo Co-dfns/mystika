@@ -14,7 +14,7 @@ sub←cry⌊∘⊃⍨∘⊃mta-
 mul←{cry((⊃⍺)⌈⊃⍵)⍪⌊0.5+9○(1-≢⍵)↑N↑ift⊃×/fft¨(-2*⌈2⍟N←¯3+(≢⍺)+≢⍵)↑¨1↓¨⍺ ⍵}
 dot←{⍉↑⊃⍺⍺.⍵⍵/⊂⍤1∘⍉¨⍵ ⍺}
 out←{⍉↑⊃∘.⍺⍺/⊂⍤1∘⍉¨⍵ ⍺}
-red←{(0⌷z)←(m←⊃z←⍵)(⊢+|⍨)2*16⋄(0 0⌷z)←m ⋄ m mta⍉↑⍺⍺/⊂⍤1⍉z}
+red←{(0⌷z)←(m←⊃z←⍵)(⊢+|⍨)2*16 ⋄ (0 0⌷z)←m ⋄ m mta⍉↑⍺⍺/⊂⍤1⍉z}
 
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
