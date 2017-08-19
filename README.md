@@ -14,6 +14,7 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
 ### Data Structures
 
     BA ⍝ Bignum Array
+    bf ⍝ Bignum function
 
 A bignum array is an array of bignums that is stored as an array of 32-bit integers where the first axis is fixed to the number of places for each number. For each BA, the first element is B<2*16, which indicates the size of the base.
 
@@ -22,6 +23,11 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
     BA←BA add BA ⍝ + over Bignums
     BA←BA sub BA ⍝ - over Bignums
     BA←BA mul BA ⍝ × over Bignums
+    
+    BA←BA bf dot bf BA ⍝ f.g over bignums
+    BA←BA bf out BA    ⍝ ∘.f over bignums
+    BA←bf red BA       ⍝ f⌿  over bignums
+    BA←BA bf pwr bg BA ⍝ f⍣g over bignums
 
 ### Hashing
 
