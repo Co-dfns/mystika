@@ -16,6 +16,7 @@ out←{(0,⍨(⌽1+⍳¯1+≢⍴⍺),(≢⍴⍺)+⌽⍳¯1+≢⍴⍵)⍉(⍉⍺)
 red←{cry(⊃⍵)mta⊃⍺⍺/⊂[1~⍨⍳≢⍴⍵]⍵ mta⍨(2*16)(⊣+|)⊃⍵}
 dot←{⍺⍺red(0 1,⍨(2+⌽⍳¯2+≢⍴⍺),(≢⍴⍺)+⍳¯2+≢⍴⍵)⍉(⍺⍉⍨1⌽⌽⍳≢⍴⍺)⍵⍵⍤2⍤2 15⊢⍵⍉⍨(¯2+≢⍴⍵)⌽⍳≢⍴⍵}
 geq←{0=1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍺ ⍵}
+leq←{0=1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍵ ⍺}
 
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
@@ -25,9 +26,6 @@ geq←{0=1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍺ ⍵}
 ⍝Uniform time
 
 B←2*8
-
-⍝Respectively: ≥ ≤ + - +/ -/  
-⍝LEQ←(∧⌿(≤/[1](∨⍀(>,[.5]<))))
 
 ⍝FT and IFT are the Fourier Transform and its inverse. 
 ⍝FT and IFT are the Fourier Transform and its inverse. 
