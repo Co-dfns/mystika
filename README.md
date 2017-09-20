@@ -25,11 +25,12 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
     BA←BA mul BA ⍝ × over Bignums
     A←BA geq BA ⍝ ≥ over Bignums
     A←BA leq BA ⍝ ≤ over Bignums
-    
+
     BA←BA bf dot bf BA ⍝ f.g over bignums
     BA←BA bf out BA    ⍝ ∘.f over bignums
     BA←bf red BA       ⍝ f⌿  over bignums
     BA←BA bf pwr bg BA ⍝ f⍣g over bignums
+    BA←{BA} cat BA ⍝ ⍪ over bignums
 
 ### Hashing
 
@@ -41,7 +42,7 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
 
     H←{B} hex S
 
-Converts an integer array S into a hexadecimal string representing the data in row major order. Each element is assumed to represent B bits of data. If B is not provided, then the largest value in the array is used to calculate the number of bits to use per element. 
+Converts an integer array S into a hexadecimal string representing the data in row major order. Each element is assumed to represent B bits of data. If B is not provided, then the largest value in the array is used to calculate the number of bits to use per element.
 
 ## Developer's Guide
 
