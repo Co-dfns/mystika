@@ -1,4 +1,4 @@
-:Namespace add_tests
+:Namespace cat_tests
 
 ⎕IO ⎕ML ⎕WX←0 1 3
 
