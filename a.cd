@@ -15,7 +15,7 @@ mul←{cry((⊃⍺)⌈⊃⍵)⍪⌊0.5+9○(1-≢⍵)↑N↑ift⊃×/fft¨(-2*�
 out←{(0,⍨(⌽1+⍳¯1+≢⍴⍺),(≢⍴⍺)+⌽⍳¯1+≢⍴⍵)⍉(⍉⍺)⍺⍺⍤1⍤1 15⍉⍵}
 red←{cry(⊃⍵)mta⊃⍺⍺/⊂[1~⍨⍳≢⍴⍵]⍵ mta⍨(2*16)(⊣+|)⊃⍵}
 dot←{⍺⍺red(0 1,⍨(2+⌽⍳¯2+≢⍴⍺),(≢⍴⍺)+⍳¯2+≢⍴⍵)⍉(⍺⍉⍨1⌽⌽⍳≢⍴⍺)⍵⍵⍤2⍤2 15⊢⍵⍉⍨(¯2+≢⍴⍵)⌽⍳≢⍴⍵}
-
+trn←⍉⍤ 15 ¯1
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
 ⍝⍴⍺=⍴⍵=n, where n is the number of places in base B
