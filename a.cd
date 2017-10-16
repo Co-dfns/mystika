@@ -26,6 +26,7 @@ lth←{0≠1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍺ ⍵}
 max←{((0⌷⍺)mta⍺×⍤15 ¯1⍨~z)add(0⌷⍵)mta(z←⍺ leq ⍵)×⍤15 ¯1⊢⍵}
 min←{((0⌷⍺)mta⍺×⍤15 ¯1⍨~z)add(0⌷⍵)mta(z←⍺ geq ⍵)×⍤15 ¯1⊢⍵}
 abs←max∘sub⍨
+pic←⊃⍤ ¯1
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
 ⍝⍴⍺=⍴⍵=n, where n is the number of places in base B
