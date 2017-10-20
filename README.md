@@ -21,15 +21,28 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
 ### Numerical Algorithms
 
     BA←BA add BA ⍝ + over Bignums
-    BA←BA sub BA ⍝ - over Bignums
+    BA←{BA} sub BA ⍝ - over Bignums
     BA←BA mul BA ⍝ × over Bignums
+    BA←{BA} cat BA ⍝ ⍪ over bignums
+    BA←rav BA ⍝ , over bignums
     BA←{A} trn BA ⍝ ⍉ over bignums
     BA←{A} rot BA ⍝ ⌽ over bignums
-    
+    BA←A sqd BA ⍝ ⌷ over bignums
+    A←BA eql BA ⍝ = over Bignums
+    A←BA neq BA ⍝ ≠ over Bignums
+    A←BA geq BA ⍝ ≥ over Bignums
+    A←BA leq BA ⍝ ≤ over Bignums
+    A←BA gth BA ⍝ > over Bignums
+    A←BA lth BA ⍝ < over Bignums
+    BA←BA max BA ⍝ ⌈ over Bignums
+    BA←BA min BA ⍝ ⌊ over Bignums
+    BA←abs BA ⍝ | over Bignums
+
     BA←BA bf dot bf BA ⍝ f.g over bignums
     BA←BA bf out BA    ⍝ ∘.f over bignums
     BA←bf red BA       ⍝ f⌿  over bignums
-    BA←BA bf pwr bg BA ⍝ f⍣g over bignums
+    BA←bf scf BA       ⍝ f⍀  over bignums
+    BA←BA bf pop bg BA ⍝ f⍣g over bignums
 
 ### Hashing
 
@@ -41,7 +54,7 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
 
     H←{B} hex S
 
-Converts an integer array S into a hexadecimal string representing the data in row major order. Each element is assumed to represent B bits of data. If B is not provided, then the largest value in the array is used to calculate the number of bits to use per element. 
+Converts an integer array S into a hexadecimal string representing the data in row major order. Each element is assumed to represent B bits of data. If B is not provided, then the largest value in the array is used to calculate the number of bits to use per element.
 
 ## Developer's Guide
 
