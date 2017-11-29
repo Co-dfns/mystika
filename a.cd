@@ -34,6 +34,8 @@ dot←{⍺⍺red(0 1,⍨(2+⌽⍳¯2+≢⍴⍺),(≢⍴⍺)+⍳¯2+≢⍴⍵)⍉
 pop←{⍺←⊢ ⋄ m←⊃⍵ ⋄ 1≡⍺ 1:cry m mta⍺⍺⍣⍵⍵⊢(m(⊢+|⍨)2*16)mta ⍵
  cry m mta⊃⍺⍺⍣⍵⍵/(m(⊢+|⍨)2*16)mta¨⍺ ⍵}
 
+spl←{⍉⊂⍤2⊢⍵⍉⍨1⌽⌽⍳⍴⍴⍵}
+mix←{⍵⍉⍨1⌽⌽⍳⍴⍴⍵}↑∘⍉
 
 ⍝This big number library uses the following standards unless stated otherwise
 ⍝Base B is a power of two less than or equal to 2^8
