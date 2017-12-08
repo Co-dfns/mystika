@@ -8,6 +8,7 @@ Debug/
 x64/
 ipch/
 *.dll
+.DS_Store
 *.exp
 *.pdb
 *.lib
