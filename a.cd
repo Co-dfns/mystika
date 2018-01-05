@@ -6,7 +6,12 @@ hex←{⍺←⌈/⌈2⍟1+,⍵
 h←{⍵⍴⍨(2⍴⍨2⍟≢⍵),1↓⍴⍵}⋄ u←{×\1,1↓(⍵÷2)⍴*○0J2÷⍵}
 fft←{(⍴⍵)⍴(h u≢⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←≢⍴⍺]-⌿⍵}h⍵}
 ift←{(≢⍵)÷⍨(⍴⍵)⍴(h+u≢⍵){(⊣/⍺)∇⍣(×m)⊢(+⌿⍵),[m-0.5]⍺×[⍳m←≢⍴⍺]-⌿⍵}h⍵}
-mta←{z⊣(0⌷z)←⍺⊣z←⍵}
+mta←⊣⍪(1↓⊢)
+bas←(2*16)|0∘⌷
+ful←bas mta⊢
+par←((2*16)(⊣+|)0⌷⊢)mta⊢
+pla←(0⌷⊢)⍪(-⊣)↑1↓⊢
+rnd←(0⌷⊢)⍪(1-∘≢⊢)↑(-⊣)↓1↓⊢
 cry←{b←(2*16)|m←⊃⍵ ⋄ m<2*16:m mta b|⊖+∘⌊∘(÷∘b)⍨Scn⊖⍵
  m mta(b∘|+0⍪⍨1↓∘⌊÷∘b)⍣(⌈32÷2⍟b)⊢⍵}
 add←cry⌊∘⊃⍨∘⊃mta+⍤¯1
@@ -19,66 +24,23 @@ rot←⌽⍤15 ¯1
 rof←⊖⍤15 ¯1
 pic←⊃⍤ ¯1
 sqd←⌷⍤15 ¯1
-eql←{∧⌿0=1↓⊃sub/(⊢mta⍨(2*16)|0⌷⊢) ⍺ ⍵}
-neq←{∨⌿0≠1↓⊃sub/(⊢mta⍨(2*16)|0⌷⊢) ⍺ ⍵}
-geq←{0=1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍺ ⍵}
-leq←{0=1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍵ ⍺}
-gth←{0≠1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍵ ⍺}
-lth←{0≠1⌷⊃sub/(⊢mta⍨(2*16)|0⌷⊢)¨⍺ ⍵}
+eql←∧⌿0=1↓(ful⊣)sub(ful⊢) 
+neq←∨⌿0≠1↓(ful⊣)sub(ful⊢)
+geq←0=1⌷(ful⊣)sub(ful⊢)
+leq←0=1⌷(ful⊢)sub(ful⊣)
+gth←0≠1⌷(ful⊢)sub(ful⊣)
+lth←0≠1⌷(ful⊣)sub(ful⊢)
 max←{((0⌷⍺)mta⍺×⍤15 ¯1⍨~z)add(0⌷⍵)mta(z←⍺ leq ⍵)×⍤15 ¯1⊢⍵}
 min←{((0⌷⍺)mta⍺×⍤15 ¯1⍨~z)add(0⌷⍵)mta(z←⍺ geq ⍵)×⍤15 ¯1⊢⍵}
 abs←max∘sub⍨
 eps←{⍺←⊢ ⋄ 1≡⍺ 1:∊⍤¯1⊢⍵ ⋄ ⍉∨/(⍉⍺)eql⍤1⍤1 15⍉⍵}
 rol←{z←?(⍴⍵)⍴(2*8)|m←0⌷⍵ ⋄ (0mta⍵)≡0⍴⍨⍴⍵:m mta z ⋄ n↑⊃mul/m mta¨(1-2×n←⊃⍴⍵)↑¨1↓¨z ⍵}
-out←{(0,⍨(⌽1+⍳¯1+≢⍴⍺),(≢⍴⍺)+⌽⍳¯1+≢⍴⍵)⍉(⍉⍺)⍺⍺⍤1⍤1 15⍉⍵}
-rdf←{cry(⊃⍵)mta⊃⍺⍺/⊂[1~⍨⍳≢⍴⍵]⍵ mta⍨(2*16)(⊣+|)⊃⍵}
-scf←{cry(0⌷⍵)mta(1 0,2↓⍳≢⍴⍵)⍉↑⍺⍺\⊂[1~⍨⍳≢⍴⍵]⍵ mta⍨(2*16)(⊣+|)0⌷⍵}
+
 dot←{⍺⍺rdf(0 1,⍨(2+⌽⍳¯2+≢⍴⍺),(≢⍴⍺)+⍳¯2+≢⍴⍵)⍉(⍺⍉⍨1⌽⌽⍳≢⍴⍺)⍵⍵⍤2⍤2 15⊢⍵⍉⍨(¯2+≢⍴⍵)⌽⍳≢⍴⍵}
-pop←{⍺←⊢ ⋄ m←⊃⍵ ⋄ 1≡⍺ 1:cry m mta⍺⍺⍣⍵⍵⊢(m(⊢+|⍨)2*16)mta ⍵
- cry m mta⊃⍺⍺⍣⍵⍵/(m(⊢+|⍨)2*16)mta¨⍺ ⍵}
+out←{(0,⍨(⌽1+⍳¯1+≢⍴⍺),(≢⍴⍺)+⌽⍳¯1+≢⍴⍵)⍉(⍉⍺)⍺⍺⍤1⍤1 15⍉⍵}
+rdf←{cry(⌊⌿0⌷⍵)mta⊃⍺⍺/⊂[1~⍨⍳≢⍴⍵]par ⍵}
+scf←{cry(0⌷⍵)mta(1 0,2↓⍳≢⍴⍵)⍉↑⍺⍺\⊂[1~⍨⍳≢⍴⍵]par ⍵}
+pop←{⍺←⊢ ⋄ 1≡⍺ 1:cry (0⌷⍵) mta⍺⍺⍣⍵⍵⊢par ⍵ ⋄ cry (0⌷⍵)mta⊃⍺⍺⍣⍵⍵/par¨⍺ ⍵}
 
 spl←{⍉⊂⍤2⊢⍵⍉⍨1⌽⌽⍳⍴⍴⍵}
 mix←{⍵⍉⍨1⌽⌽⍳⍴⍴⍵}↑∘⍉
-
-⍝This big number library uses the following standards unless stated otherwise
-⍝Base B is a power of two less than or equal to 2^8
-⍝⍴⍺=⍴⍵=n, where n is the number of places in base B
-⍝⍴⍵=n m, where the base B expansions are in rows
-⍝⍺,[0.5]⍵ is used to combine vectors into a two row matrix
-⍝Uniform time
-
-⍝B←2*8
-
-⍝Newton-Raphson inverse of ⍵ to precision ⍺. E0=.5
-⍝INV0←0⍪↑{(⌊32÷2⍟B)↑C(1↑⍨-N)-⍨⊃⌽({(1|d)((⊃⌽⍵),⌊d←B×⊃⍵)}⍣(N←⌈54÷2⍟B))÷⍵⍬}¨1+⍳B
-⍝INV1←{(-⍺)↑(1+⍺-N)⍴INV0⌿⍨(⍳1+B)={(⊃⍵)+(B÷2)≤⊃⌽⍵}(⍵,0 0)/⍨∨/(⍳2+⍴⍵)∘.=(⍳2)+(⍴⍵)-N←+/∨\0≠⍵}
-⍝INV←{⍵({(⍴⍵)↑1↓⍵ XT(2,0⍴⍨⍴⍵)-(1-⍨⍴⍺)↓⍺ XT ⍵}⍣((⌈2⍟2⍟B)+⌈2⍟⍺+1))⍺ INV1 ⍵}
-
-⍝Montgomery Ladder ⍺: exponent base 2, ⍵ base B, ⍺⍺ operation e.g. XT or GF256)
-⍝Assumes the identity element has the form 0 0 .... 0 1
-ML←{0⌷⊃(⍺⍺{(⍺⌷⍵)⍺⍺(⍤1)⍵})/(⌽⍺),⊂⍵,[¯0.5]⍨1↑⍨-⍴⍵}
-
-⍝One step of Modular reduction used for both REDC and BMOD
-⍝MOD←{1↓{+/⍵×(⍴⍵)⍴1 2∘.=⍨+/0=0⌷⍵}(0⍪⍵),[0.5-⍨⍴⍴⍵]C 0⍪⍵-⍺}
-
-⍝Barret Reduction: ⍺←N ⋄ ⍺⍺←(2×⍴N)INV N ⋄ ⍵←u
-⍝BMOD←{1↓(0,⍺)(MOD⍣2)(-1+⍴⍺)↑C⍵-((⍴⍺⍺)-⍴⍺)↓⍺ XT(-1+⍴⍺)↓⍺⍺XT⍵↓⍨1-⍴⍺}
-
-⍝LehmerGCD
-⍝Q←{N↑C(1↑⍨1-2×N)+¯1↓⍵[;0]XT (N←⊃⍴⍵)INV ⍵[;1]} ⍝Quotient of two columns
-⍝L0←{0⍪⍵,[1](-⊃⍴⍵)↑1 2 2⍴∘.=⍨⍳2}
-⍝L1←{{(B⊥2 2⍴⍵⌿⍨(⍳N)=(N←⊃⍴⍵)-+/∨\∨/∨/0≠⍵)⍪∘.=⍨⍳2}⍵⍴⍨2 2,⍨2÷⍨⊃⍴⍵}
-⍝L2←{({=/⌊÷/M}⍣(∧/0≠(M←((2 2⍴1↑⍵)+¯2↑⍵))[;1]))0}
-⍝L3←{⍵ +.×2 2⍴0 1 1, -(⊃⌊÷/+⌿2 2 2⍴⍵)}
-⍝L4←{C M[;;1],[1.5]M[;;0]-(-⊃⍴⍺)↑(Q 1↓M[;0;])XT0 (M←⍺+.×¯2↑⍵)[;;1]}
-⍝LGCD←{0⌷[2]{∧/⍵[;0;1]=0:⍵ ⋄ ⍵ L4({(L3⍣(L2 ⍵))⍵}⍣≡)L1 1↓⍵[;0;]}⍣≡L0 ⍵}
-
-⍝Inverse of right column mod left column
-⍝MINV←{(0,⍵[;0]){,M/⍨(⍳2)=0≠⊃M←⍵,[.5]C ⍺+⍵}2⌷[1]LGCD ⍵}
-
-⍝Montgomery reduction u×R*¯1 mod N: ⍺←N ⋄ ⍺⍺←N1 N ⋄ ⍵←u
-⍝N1←{C-(-⍴⍵)↑MINV {⍵↑⍨-2*⌈2⍟⊃⍴⍵}(1↑⍨1+⍴⍵),[.5]0,⍵}
-⍝REDC←{⍺MOD(⍴⍺)↑C(⍵↑⍨2×⍴⍺)+⍺ XT(-⍴⍺)↑⍺⍺ XT(-⍴⍺)↑⍵}
-
-⍝Modular Exponentiation using Barret reduction and the Montgomery Ladder
-⍝BEXP←{⍺((⍺⍺{⍺⍺(⍵⍵ BMOD)⍺ XT ⍵}((⊃2×⍴⍺)INV ⍺⍺))ML) ⍵}
