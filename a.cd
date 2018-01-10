@@ -24,12 +24,12 @@ rot←⌽⍤15 ¯1
 rof←⊖⍤15 ¯1
 pic←⊃⍤ ¯1
 sqd←⌷⍤15 ¯1
-eql←∧⌿0=1↓(ful⊣)sub(ful⊢) 
-neq←∨⌿0≠1↓(ful⊣)sub(ful⊢)
-geq←0=1⌷(ful⊣)sub(ful⊢)
-leq←0=1⌷(ful⊢)sub(ful⊣)
-gth←0≠1⌷(ful⊢)sub(ful⊣)
-lth←0≠1⌷(ful⊣)sub(ful⊢)
+eql←∧⌿0=1↓sub∘ful⍨∘ful
+neq←∨⌿0≠1↓sub∘ful⍨∘ful
+leq←0=1⌷sub∘ful⍨∘ful
+geq←leq⍨
+gth←0≠1⌷sub∘ful⍨∘ful
+lth←gth⍨
 max←{((0⌷⍺)mta⍺×⍤15 ¯1⍨~z)add(0⌷⍵)mta(z←⍺ leq ⍵)×⍤15 ¯1⊢⍵}
 min←{((0⌷⍺)mta⍺×⍤15 ¯1⍨~z)add(0⌷⍵)mta(z←⍺ geq ⍵)×⍤15 ¯1⊢⍵}
 abs←max∘sub⍨
