@@ -20,40 +20,41 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
 
 ### Numerical Algorithms
 
-    BA←ima BA ⍝ 11○ over bignums
-    BA←rea BA ⍝ 9○ over bignums
-    flo BA ⍝ ⍴ over bignums
-    cel BA ⍝ ⌈ over bignums
-    BA←BA add BA ⍝ + over Bignums
-    BA←{BA} sub BA ⍝ - over Bignums
-    BA←BA mul BA ⍝ × over Bignums
-    BA←{BA} cat BA ⍝ ⍪ over bignums
-    BA←rav BA ⍝ , over bignums
-    BA←{A} trn BA ⍝ ⍉ over bignums
-    BA←{A} rot BA ⍝ ⌽ over bignums
-    BA←{A} rof BA ⍝ ⊖ over bignums
-    BA←{A} pic BA ⍝ ⊃ over bignums
-    BA←{A} sqd BA ⍝ ⌷ over bignums
-    A←BA eql BA ⍝ = over Bignums
-    A←BA neq BA ⍝ ≠ over Bignums
-    A←BA leq BA ⍝ ≤ over Bignums
-    A←BA geq BA ⍝ ≥ over Bignums
-    A←BA gth BA ⍝ > over Bignums
-    A←BA lth BA ⍝ < over Bignums
-    BA←BA max BA ⍝ ⌈ over Bignums
-    BA←BA min BA ⍝ ⌊ over Bignums
-    BA←abs BA ⍝ | over Bignums
-    BA←{BA} eps BA ⍝ ∊ over Bignums
-    BA←BA ind BA ⍝ ⍳ over Bignums
-    BA←rol BA ⍝ ? over Bignums
-    BA←BA bf dot bf BA ⍝ f.g over bignums
-    BA←BA bf out BA    ⍝ ∘.f over bignums
-    BA←bf red BA       ⍝ f/ over bignums
-    BA←bf scn BA       ⍝ f\ over bignums
-    BA←bf rdf BA       ⍝ f⌿  over bignums
-    BA←bf scf BA       ⍝ f⍀  over bignums
-    BA←BA bf pop bg BA ⍝ f⍣g over bignums
-    BA←{A} rho BA        ⍝ ⍴ over bignums
+    BA←ima BA           ⍝ 11○ over bignums
+    BA←rea BA           ⍝ 9○ over bignums
+    BA←cnj BA           ⍝ + over Bignums
+    BA←BA add BA        ⍝ + over Bignums
+    BA←{BA} sub BA      ⍝ - over Bignums
+    BA←BA mul BA        ⍝ × over Bignums
+    BA←flo BA           ⍝ ⌊ over bignums
+    BA←cel BA           ⍝ ⌈ over bignums
+    BA←{BA} cat BA      ⍝ ⍪ over bignums
+    BA←rav BA           ⍝ , over bignums
+    BA←{A} trn BA       ⍝ ⍉ over bignums
+    BA←{A} rot BA       ⍝ ⌽ over bignums
+    BA←{A} rof BA       ⍝ ⊖ over bignums
+    BA←{A} pic BA       ⍝ ⊃ over bignums
+    BA←{A} sqd BA       ⍝ ⌷ over bignums
+    A←BA eql BA         ⍝ = over Bignums
+    A←BA neq BA         ⍝ ≠ over Bignums
+    A←BA leq BA         ⍝ ≤ over Bignums
+    A←BA geq BA         ⍝ ≥ over Bignums
+    A←BA gth BA         ⍝ > over Bignums
+    A←BA lth BA         ⍝ < over Bignums
+    BA←BA max BA        ⍝ ⌈ over Bignums
+    BA←BA min BA        ⍝ ⌊ over Bignums
+    BA←abs BA           ⍝ | over Bignums
+    BA←{A} rho BA       ⍝ ⍴ over Bignums
+    BA←{BA} eps BA      ⍝ ∊ over Bignums
+    BA←BA ind BA        ⍝ ⍳ over Bignums
+    BA←rol BA           ⍝ ? over Bignums
+    BA←BA bf dot bf BA  ⍝ f.g over bignums
+    BA←BA bf out BA     ⍝ ∘.f over bignums
+    BA←bf red BA        ⍝ f/ over bignums
+    BA←bf scn BA        ⍝ f\ over bignums
+    BA←bf rdf BA        ⍝ f⌿  over bignums
+    BA←bf scf BA        ⍝ f⍀  over bignums
+    BA←BA bf pop bg BA  ⍝ f⍣g over bignums
 
 ### Hashing
 
