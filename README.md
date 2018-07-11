@@ -15,19 +15,19 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
 
     BA ⍝ Bignum Array
     bf ⍝ Bignum function
+    NBA ⍝ Nested bignum Array
 
-A bignum array is an array of bignums that is stored as an array of 32-bit integers where the first axis is fixed to the number of places for each number. For each BA, the first element is B<2*16, which indicates the size of the base.
+A bignum array is an array of bignums that is stored as an array of 32-bit integers where the first axis is fixed to the number of places for each number. For each BA, the first element is B for
+a real number and 0JB for a complex number where (2*16)|B is the base, and the second element indicates the number of places that the radix point is shifted to the left (a negative number indicates that the radix point is shifted to the right).  If B≠(2*16)|B, then partial carrying is specified.
 
-### Numerical Algorithms
+### APL Primitive Functions
 
     BA←ima BA           ⍝ 11○ over bignums
     BA←rea BA           ⍝ 9○ over bignums
-    BA←cnj BA           ⍝ + over Bignums
-    BA←BA add BA        ⍝ + over Bignums
+    BA←cnj BA           ⍝ monadic + over Bignums
+    BA←BA add BA        ⍝ dyadic + over Bignums
     BA←{BA} sub BA      ⍝ - over Bignums
-    BA←BA mul BA        ⍝ × over Bignums
-    BA←flo BA           ⍝ ⌊ over bignums
-    BA←cel BA           ⍝ ⌈ over bignums
+    BA←BA mul BA        ⍝ dyadic × over Bignums
     BA←{BA} cat BA      ⍝ ⍪ over bignums
     BA←rav BA           ⍝ , over bignums
     BA←{A} trn BA       ⍝ ⍉ over bignums
@@ -41,13 +41,22 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
     A←BA geq BA         ⍝ ≥ over Bignums
     A←BA gth BA         ⍝ > over Bignums
     A←BA lth BA         ⍝ < over Bignums
-    BA←BA max BA        ⍝ ⌈ over Bignums
-    BA←BA min BA        ⍝ ⌊ over Bignums
-    BA←abs BA           ⍝ | over Bignums
+    BA←flo BA           ⍝ monadic ⌊ over bignums
+    BA←cel BA           ⍝ monadic ⌈ over bignums
+    BA←BA min BA        ⍝ dyadic ⌊ over Bignums
+    BA←BA max BA        ⍝ dyadic ⌈ over Bignums
+    BA←abs BA           ⍝ monadic | over Bignums
     BA←{A} rho BA       ⍝ ⍴ over Bignums
     BA←{BA} eps BA      ⍝ ∊ over Bignums
-    BA←BA ind BA        ⍝ ⍳ over Bignums
-    BA←rol BA           ⍝ ? over Bignums
+    BA←BA ind BA        ⍝ dyadic ⍳ over Bignums
+    BA←rol BA           ⍝ monadic ? over Bignums
+    BA←tke BA           ⍝ dyadic ↓ over Bignums
+    BA←drp BA           ⍝ dyadic ↑ over Bignums 
+    BA←spl BA           ⍝ monadic ↓ over Bignums
+    BA←mix NBA          ⍝ monadic ↑ over Bignums
+
+### APL Primitive Operators
+
     BA←BA bf dot bf BA  ⍝ f.g over bignums
     BA←BA bf out BA     ⍝ ∘.f over bignums
     BA←bf red BA        ⍝ f/ over bignums
@@ -56,6 +65,8 @@ A bignum array is an array of bignums that is stored as an array of 32-bit integ
     BA←bf scf BA        ⍝ f⍀  over bignums
     BA←BA bf pop bg BA  ⍝ f⍣g over bignums
 
+### Numerical Algorithms
+    
 ### Hashing
 
 ### Cyphers
