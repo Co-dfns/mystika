@@ -17,8 +17,8 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
     bf ⍝ Bignum function
     NBA ⍝ Nested bignum Array
 
-A bignum array is an array of bignums that is stored as an array of 32-bit integers where the first axis is fixed to the number of places for each number. For each BA, the first element is B for
-a real number and 0JB for a complex number where (2*16)|B is the base, and the second element indicates the number of places that the radix point is shifted to the left (a negative number indicates that the radix point is shifted to the right).  If B≠(2*16)|B, then partial carrying is specified.
+A bignum array is an array of bignums that is stored as an array of 32-bit integers where the first axis is fixed to the number of places for each number. For each BA, the first element indicates
+the base, which must have the form B for a real bignum or 0JB for a complex bignum where B<2*16, the second element indicates the number of places that the radix point is shifted to the left (a negative number indicates that the radix point is shifted to the right), and the third element is 1 for a negative real bignum and zero otherwise (even in the complex case).
 
 ### APL Primitive Functions
 
@@ -29,7 +29,7 @@ a real number and 0JB for a complex number where (2*16)|B is the base, and the s
     BA←{BA} sub BA      ⍝ - over Bignums
     BA←BA mul BA        ⍝ dyadic × over Bignums
     BA←{BA} cat BA      ⍝ ⍪ over bignums
-    BA←rav BA           ⍝ , over bignums
+    BA←rav BA           ⍝ , over bignums (monadically: , also works).
     BA←{A} trn BA       ⍝ ⍉ over bignums
     BA←{A} rot BA       ⍝ ⌽ over bignums
     BA←{A} rof BA       ⍝ ⊖ over bignums
