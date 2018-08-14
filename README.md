@@ -54,6 +54,8 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
     BA←drp BA           ⍝ dyadic ↑ over Bignums 
     BA←spl BA           ⍝ monadic ↓ over Bignums
     BA←mix NBA          ⍝ monadic ↑ over Bignums
+    BA←{BA} div BA      ⍝ ÷ over Bignums
+    BA←BA mod BA        ⍝ | over Bignums
 
 ### APL Primitive Operators
 
