@@ -23,6 +23,9 @@ Z←{x←(¯2 ¯13 ¯22)(¯6 ¯11 ¯25) ⋄ y←(¯28 ¯34 ¯39)(¯14 ¯18 ¯41)
 :EndNamespace
 
 ⍝For AES
+⍝Montgomery Ladder ⍺: exponent base 2, ⍵ base B, ⍺⍺ operation e.g. XT or GF256)
+⍝Assumes the identity element has the form 0 0 .... 0 1
+ML←{0⌷⊃(⍺⍺{(⍺⌷⍵)⍺⍺(⍤1)⍵})/(⌽⍺),⊂⍵,[¯0.5]⍨1↑⍨-⍴⍵}
 PT←{2|⌊0.5+9○N↑ift⊃×/fft¨(2*⌈2⍟N←¯1+(⍴⍺)+⍴⍵)↑¨⍺ ⍵}
 PR←{⍺({1↓⍵≠(⍴⍵)↑⍺∧⊃⍵}⍣(1+⊃(⍴⍵)-⍴⍺))⍵}
 M256←⍉8 8 8⍴⊃,/,∘.{1 0 0 0 1 1 0 1 1 PR ⍺ PT ⍵}⍨,/∘.=⍨⍳8                                     
