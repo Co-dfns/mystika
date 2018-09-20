@@ -14,6 +14,7 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
 ### Data Structures
 
     BA ⍝ Bignum Array
+    PA ⍝ Bigpoly Array
     bf ⍝ Bignum function
     NBA ⍝ Nested bignum Array
 
@@ -63,11 +64,13 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
     BA←BA bf out BA     ⍝ ∘.f over bignums
     BA←bf red BA        ⍝ f/ over bignums
     BA←bf scn BA        ⍝ f\ over bignums
-    BA←bf rdf BA        ⍝ f⌿  over bignums
-    BA←bf scf BA        ⍝ f⍀  over bignums
+    BA←bf rdf BA        ⍝ f⌿ over bignums
+    BA←bf scf BA        ⍝ f⍀ over bignums
     BA←BA bf pop bg BA  ⍝ f⍣g over bignums
 
 ### Numerical Algorithms
+    
+    PA←PA pmul PA       ⍝ × over bigpolys
     
 ### Hashing
 
