@@ -66,6 +66,7 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
     BA←bf rdf BA        ⍝ f⌿  over bignums
     BA←bf scf BA        ⍝ f⍀  over bignums
     BA←BA bf pop bg BA  ⍝ f⍣g over bignums
+    BA←{BA}bf⍤k BA 	⍝ f⍤k over bignums
 
 ### Numerical Algorithms
     
