@@ -78,6 +78,7 @@ exp←{b←⊃bas⍵ ⋄ k←2⍟|b ⋄ s←(⌈/∘⌈k×0,∘,1+pla-ovr)⍵
  r←(1⍳⍨⊢<∘(⊢+∘(+\)(|b)∘⍟)1+⍳)(pla⍵)+⌈s÷k ⋄ n←3+(pla⍵)+⌈s÷k ⋄ z←b,1↑⍨-2+n
  (pla ⍵)pla mul⍨⍣s⊢z add mul∘(z∘add)red(⊢div out (1+⍳r)big⍨⊢)di2⍣s⊢n pla⍵}
 snh←di2 exp sub exp∘sub
+cis←{exp r2c⍣(isr⍵)(2∘↑⍪0⍪0J1×sg0)⍵}
 
 cat←⍪⍤¯1
 rav←,⍤¯1
