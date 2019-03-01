@@ -58,8 +58,9 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
     BA←{BA} div BA      ⍝ ÷ over Bignums
     BA←BA mod BA        ⍝ | over Bignums
     BA←snh BA           ⍝ 5○ over bignums
-    BA←cis BA 		      ⍝ 12○ over bignums
-
+    BA←cis BA 		⍝ 12○ over bignums
+    BA←sin BA		⍝ 1○ over bignums
+    
 ### APL Primitive Operators
 
     BA←BA bf dot bf BA  ⍝ f.g over bignums
