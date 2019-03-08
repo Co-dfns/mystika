@@ -80,6 +80,7 @@ exp←{b←⊃bas⍵ ⋄ k←2⍟|b ⋄ s←(⌈/∘⌈k×0,∘,1+pla-ovr)⍵
 snh←pla pla∘(di2 exp sub exp∘sub)≢pla⊢
 cis←{(pla⍵)pla exp r2c⍣(isr⍵)(≢pla 2∘↑⍪0⍪0J1×sg0)⍵}
 tan←{z←(0J1×|⊃bas⍵)⍪1↑⍨-2+≢⍵ ⋄ (pla⍵)pla rea⍣(isr⍵)cry(3∘↑⍪0J1×3∘↓)(z∘sub div z∘add)cis(cry 3∘↑⍪2×sg0)(≢pla⊢)⍵}
+sin←{(pla⍵)pla rea⍣(isr⍵)(cry 3∘↑⍪0J¯1×3∘↓)(di2 cis sub cis∘sub)(≢pla⊢)⍵}
 
 cat←⍪⍤¯1
 rav←,⍤¯1

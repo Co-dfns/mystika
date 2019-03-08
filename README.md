@@ -25,10 +25,10 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
 
     BA←ima BA           ⍝ 11○ over bignums
     BA←rea BA           ⍝ 9○ over bignums
-    BA←cnj BA           ⍝ monadic + over Bignums
-    BA←BA add BA        ⍝ dyadic + over Bignums
-    BA←{BA} sub BA      ⍝ - over Bignums
-    BA←BA mul BA        ⍝ dyadic × over Bignums
+    BA←cnj BA           ⍝ monadic + over bignums
+    BA←BA add BA        ⍝ dyadic + over bignums
+    BA←{BA} sub BA      ⍝ - over bignums
+    BA←BA mul BA        ⍝ dyadic × over bignums
     BA←{BA} cat BA      ⍝ ⍪ over bignums
     BA←rav BA           ⍝ , over bignums (monadically: , also works).
     BA←{A} trn BA       ⍝ ⍉ over bignums
@@ -44,22 +44,23 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
     A←BA lth BA         ⍝ < over Bignums
     BA←flo BA           ⍝ monadic ⌊ over bignums
     BA←cel BA           ⍝ monadic ⌈ over bignums
-    BA←BA min BA        ⍝ dyadic ⌊ over Bignums
-    BA←BA max BA        ⍝ dyadic ⌈ over Bignums
-    BA←abs BA           ⍝ monadic | over Bignums
-    BA←{A} rho BA       ⍝ ⍴ over Bignums
-    BA←{BA} eps BA      ⍝ ∊ over Bignums
-    BA←BA ind BA        ⍝ dyadic ⍳ over Bignums
-    BA←rol BA           ⍝ monadic ? over Bignums
-    BA←tke BA           ⍝ dyadic ↑ over Bignums
-    BA←drp BA           ⍝ dyadic ↓ over Bignums 
-    BA←spl BA           ⍝ monadic ↓ over Bignums
-    BA←mix NBA          ⍝ monadic ↑ over Bignums
-    BA←{BA} div BA      ⍝ ÷ over Bignums
-    BA←BA mod BA        ⍝ | over Bignums
+    BA←BA min BA        ⍝ dyadic ⌊ over bignums
+    BA←BA max BA        ⍝ dyadic ⌈ over bignums
+    BA←abs BA           ⍝ monadic | over bignums
+    BA←{A} rho BA       ⍝ ⍴ over bignums
+    BA←{BA} eps BA      ⍝ ∊ over bignums
+    BA←BA ind BA        ⍝ dyadic ⍳ over bignums
+    BA←rol BA           ⍝ monadic ? over bignums
+    BA←tke BA           ⍝ dyadic ↑ over bignums
+    BA←drp BA           ⍝ dyadic ↓ over bignums 
+    BA←spl BA           ⍝ monadic ↓ over bignums
+    BA←mix NBA          ⍝ monadic ↑ over bignums
+    BA←{BA} div BA      ⍝ ÷ over bignums
+    BA←BA mod BA        ⍝ | over bignums
     BA←snh BA           ⍝ 5○ over bignums
-    BA←cis BA 		    ⍝ 12○ over bignums
-	BA←tan BA           ⍝ 3○ over bignums⌈
+    BA←cis BA           ⍝ 12○ over bignums
+    BA←tan BA           ⍝ 3○ over bignums
+    BA←sin BA           ⍝ 1○ over bignums
 
 ### APL Primitive Operators
 
@@ -70,7 +71,7 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
     BA←bf rdf BA        ⍝ f⌿ over bignums
     BA←bf scf BA        ⍝ f⍀ over bignums
     BA←BA bf pop bg BA  ⍝ f⍣g over bignums
-    BA←{BA}bf rop k BA 	⍝ f⍤k over bignums
+    BA←{BA}bf rop k BA  ⍝ f⍤k over bignums
 
 ### Numerical Algorithms
     
