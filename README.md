@@ -17,7 +17,6 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
     PA ⍝ Bigpoly Array
     bf ⍝ Bignum function
     NBA ⍝ Nested bignum Array
-    01A ⍝ binary Array
 
 A bignum array is an array of bignums that is stored as an array of 32-bit integers where the first axis is fixed to the number of places for each number. For each BA, the first element indicates
 the base, which must have the form B for a real bignum or 0JB for a complex bignum where B<2*16, the second element indicates the number of places that the radix point is shifted to the left (a negative number indicates that the radix point is shifted to the right), and the third element is 1 for a negative real bignum and zero otherwise (even in the complex case).
@@ -82,14 +81,14 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
 
 ### Cyphers
 
-⍺ ⍵←key message ⋄ 01A←01A AES.ecr 01A ⍝AES encrypt
-⍺ ⍵←key message ⋄ 01A←01A AES.dcr 01A ⍝AES decrypt
+    ⍺ ⍵←key message ⋄ A←A AES.ecr A ⍝AES encrypt
+    ⍺ ⍵←key message ⋄ A←A AES.dcr A ⍝AES decrypt
 
 ### Protocols
 
 ### Application Utilities
 
-    H←{B} hex S
+    H←{B} hex A
 
 Converts an integer array S into a hexadecimal string representing the data in row major order. Each element is assumed to represent B bits of data. If B is not provided, then the largest value in the array is used to calculate the number of bits to use per element.
 
