@@ -152,7 +152,7 @@ pr1←pr0 memo ∆pr
 pr2←{k←⌊32÷2⍟b←⊃bas ⍵ ⋄ ((k≥pla-top)×⊃∘bas⊥k↑⍨∘-⍨⊢)⍵}
 pr3←{0∊⍴⍵:⍵ ⋄ b←⊃bas ⍵ ⋄ ⍵/⍨(⍺=pr2⍵)∨0≠(⍺|+∘(b∘×))⌿⊖sg0⍵}
 mr0←{0∊⍴⍵:⍵ ⋄ z←⍵ sub ⍵ big 1
- ⍵/⍨(⍺≥pr2⍵)∨(z rav ⍵ big 1)eps⍨(flo di2 z)(⍵ mex)⍵ big ⍺}
+ ⍵/⍨((0∘≠∧⍺∘≥)pr2⍵)∨(z rav ⍵ big 1)eps⍨(flo di2 z)(⍵ mex)⍵ big ⍺}
 mr1←{0∊⍴⍵:⍵ ⋄ ⊃mr0/(2+⊃?/0 ¯2+⍺),⊂⍵}
 mrp←{⍺←(2∘⍟,⍨∘⌈⍨2××⍨)(⌈/∘,2∘⍟∘⊃∘bas×pla-top)⍵
  ⍺mr1⊃pr3/(⌽pr1 1⊃⍺),⊂1(⊢(/⍨∘~)big⍨eps⍨⊢)⍵}
