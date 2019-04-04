@@ -77,6 +77,7 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
     
     PA←PA pmul PA       ⍝ × over bigpolys
     MA←mrp MA ⍝ Miller-Rabin primality test
+    MA←sgp MA ⍝ Sophie-Germain primality test
     
 ### Hashing
 
@@ -90,6 +91,7 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
 ### Application Utilities
 
     H←{B} hex A
+    A or BA←b64 BA or A ⍝ base 64 
 
 Converts an integer array S into a hexadecimal string representing the data in row major order. Each element is assumed to represent B bits of data. If B is not provided, then the largest value in the array is used to calculate the number of bits to use per element.
 
