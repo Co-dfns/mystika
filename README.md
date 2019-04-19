@@ -76,9 +76,10 @@ the base, which must have the form B for a real bignum or 0JB for a complex bign
 ### Numerical Algorithms
     
     PA←PA pmul PA       ⍝ × over bigpolys
-    BA←mrp BA ⍝ Miller-Rabin primality test
-    BA←sgp BA ⍝ Sophie-Germain primality test
-    BA←{BA}rsg BA ⍝ Creates random Sophie-Germain prime
+    BA←mrp BA           ⍝ Miller-Rabin primality test
+    BA←sgp BA           ⍝ Sophie-Germain primality test
+    BA←{BA}rsg BA       ⍝ Creates random Sophie-Germain prime
+    BA←{BA}rpr BA       ⍝ creates random prime
     
 ### Hashing
 

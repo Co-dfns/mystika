@@ -173,3 +173,6 @@ sgp←{⍺←(2∘⍟,⍨∘⌈⍨2××⍨)(⌈/∘,1+2∘⍟∘⊃∘bas×pla-t
 sp4←mrp∘(⊃∘bas⍪sg0↑⍨∘-2×1+pla)(⊢(/⍨)leq )∘rol
 sp5←{~0∊⍴⍺⍺: (pla⍵)pla 0sqd⍺⍺ ⋄ ⍺←⊢ ⋄ ⍺((⍺ sp4 ⍵)∇∇)⍵}
 rsg←{⍺←⊢ ⋄ b←⊃bas ⍵ ⋄ n←(⌈2⍟b)×pla ⍵ ⋄ ⍺(⍬ sp5)⊢n rho ⍵}
+rp0←mrp∘(⊃∘bas⍪sg0↑⍨∘-2×1+pla)(⊢(/⍨)leq )∘rol
+rp1←{~0∊⍴⍺⍺: (pla⍵)pla 0sqd⍺⍺ ⋄ ⍺←⊢ ⋄ ⍺((⍺ rp0 ⍵)∇∇)⍵}
+rpr←{⍺←⊢ ⋄ b←⊃bas ⍵ ⋄ n←(⌈2⍟b)×pla ⍵ ⋄ ⍺(⍬ rp1)⊢n rho ⍵}
