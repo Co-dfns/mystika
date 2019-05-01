@@ -163,6 +163,9 @@ mr0←{0∊⍴⍵:⍵ ⋄ z←⍵ sub ⍵ big 1
 mr1←{0∊⍴⍵:⍵ ⋄ ⊃mr0/(2+⊃?/0 ¯2+⍺),⊂⍵}
 mrp←{⍺←(2∘⍟,⍨∘⌈⍨2××⍨)(⌈/∘,2∘⍟∘⊃∘bas×pla-top)⍵
  ⍺mr1⊃pr3/(⌽pr1 1⊃⍺),⊂1(⊢(/⍨∘~)big⍨eps⍨⊢)⍵}
+rp0←mrp∘(⊃∘bas⍪sg0↑⍨∘-2×1+pla)(⊢(/⍨)leq )∘rol
+rp1←{~0∊⍴⍺⍺: (pla⍵)pla 0sqd⍺⍺ ⋄ ⍺←⊢ ⋄ ⍺((⍺ rp0 ⍵)∇∇)⍵}
+rpr←{⍺←⊢ ⋄ b←⊃bas ⍵ ⋄ n←(⌈2⍟b)×pla ⍵ ⋄ ⍺(⍬ rp1)⊢n rho ⍵}
 sp0←{0∊⍴⍵:⍵ ⋄ b←⊃bas⍵ ⋄ ⍵/⍨∧⌿(⍺=pr2⍵)∨0≠(⍺|+∘(b∘×))⌿⊖sg0⍵}
 sp1←{0∊⍴⍵:⍵ ⋄ 0=2|⊃bas⍵:⍵/⍨∧⌿(2=pr2⍵)∨2|0⌷¯1↑⍵ ⋄ 2 sp0⍵}
 sp2←{0∊⍴⍵:⍵ ⋄ z←⍵ sub ⍵ big 1
@@ -170,9 +173,6 @@ sp2←{0∊⍴⍵:⍵ ⋄ z←⍵ sub ⍵ big 1
 sp3←{0∊⍴⍵:⍵ ⋄ 0sqd⊃sp2/(2+⊃?/0 ¯2+⍺),⊂⍵}
 sgp←{⍺←(2∘⍟,⍨∘⌈⍨2××⍨)(⌈/∘,1+2∘⍟∘⊃∘bas×pla-top)⍵
  ⍺sp3⊃sp0/(⌽1↓pr1 1⊃⍺),⊂sp1⊢1(⊢(/⍨)∘(∧⌿~)big⍨eps⍨⊢)(⊢,[.5]big∘1 add 3∘↑⍪2×3∘↓)⍵}
-sp4←mrp∘(⊃∘bas⍪sg0↑⍨∘-2×1+pla)(⊢(/⍨)leq )∘rol
+sp4←sgp∘(⊃∘bas⍪sg0↑⍨∘-2×1+pla)(⊢(/⍨)leq )∘rol
 sp5←{~0∊⍴⍺⍺: (pla⍵)pla 0sqd⍺⍺ ⋄ ⍺←⊢ ⋄ ⍺((⍺ sp4 ⍵)∇∇)⍵}
 rsg←{⍺←⊢ ⋄ b←⊃bas ⍵ ⋄ n←(⌈2⍟b)×pla ⍵ ⋄ ⍺(⍬ sp5)⊢n rho ⍵}
-rp0←mrp∘(⊃∘bas⍪sg0↑⍨∘-2×1+pla)(⊢(/⍨)leq )∘rol
-rp1←{~0∊⍴⍺⍺: (pla⍵)pla 0sqd⍺⍺ ⋄ ⍺←⊢ ⋄ ⍺((⍺ rp0 ⍵)∇∇)⍵}
-rpr←{⍺←⊢ ⋄ b←⊃bas ⍵ ⋄ n←(⌈2⍟b)×pla ⍵ ⋄ ⍺(⍬ rp1)⊢n rho ⍵}
