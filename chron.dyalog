@@ -1,15 +1,16 @@
 :Namespace chron
 
-cmpx←{⍺←⍬ ⋄ r c m←1 0 100(⊢+⊣×0=⊢)3↑⍺
+cmpx←{⍺←⍬ ⋄ r c m←1 0 10(⊢+⊣×0=⊢)3↑⍺
  f←{(2-c)∘⊃(⍎'{0<⍵:∇⍵-1⊣',⍵,'⋄⎕AI}⍺')-⎕AI}
- 1{t←⍺f¨⍵ ⋄ m>+/,t÷≢⍵:(⍺×2)∇⍵
+ 1{t←⍺f¨⍵ ⋄ m>(+/÷≢),t:(⍺×2)∇⍵
  ((⊢-0⌊⌊/∘,)t-⍺f'⍬')÷⍺×1000}(⊢⍴⍨r,⍴)⊆⍵}
 
- utf8get←{
-	0::⎕SIGNAL ⎕EN	⍝ signal error to caller.
-	tie←⍵ ⎕NTIE 0	⍝ file handle.
-	ints←⎕NREAD tie 83,⎕NSIZE tie	⍝ all UTF-8 file bytes.
-	('UTF-8'⎕UCS 256|ints)⊣⎕NUNTIE tie	⍝ ⎕AV chars.
+get←{
+    ⍺←83                                ⍝ default: return 8-bit integers
+	0::⎕SIGNAL ⎕EN	                    ⍝ signal error to caller.
+	t←⍵ ⎕NTIE 0	                        ⍝ file handle.
+	z←⎕NREAD t ⍺,⎕NSIZE t               ⍝ all bytes.
+	z⊣⎕NUNTIE t	                        ⍝ ⎕AV chars.
 }
 
 putfile←{                               ⍝ Put rows to text-file.
@@ -28,34 +29,48 @@ putfile←{                               ⍝ Put rows to text-file.
 newname←{'.dyalog',⍨'./chron/data/',⍵,'_data_',⊃,∘('-'∘,)/⍕¨⎕TS}
 run←{f←⊢↑[1]⍨1⊃⌈∘⍴⍨∘⍴ ⋄ 1 putfile(⊂⍺(f⍨⍪f)⍕⍎⍵),⊂newname⍵}
 
-∇ Z←OS
-    Z←'Mac' 'Linux'∨.≡3 5↑¨⊂⊃'.'⎕WG'APLVersion'
-∇
+OS←{'Mac' 'Linux'∨.≡3 5↑¨⊂⊃'.'⎕WG'APLVersion'}
 
-∇ Z←specs
-    :If OS
-        Z←⎕SH 'cat /proc/cpuinfo | grep processor -A 8'
-        Z,←⎕SH 'sudo dmidecode --type 17' 
-        Z,←⎕SH 'lspci -vnn | grep VGA'
-    :EndIf
-∇
+specs←{
+ z←'sudo dmidecode --type 17'
+ z,←' && cat /proc/cpuinfo | grep processor -A 8'
+ z,←' && lspci -vnn | grep VGA'
+ OS⍬: ⍵,⍨⎕SH z
+}
 
 find←{v←'tests' 'data'≡¨⊂⍵ ⋄ ~1∊v:⎕EM 11
- s←⊃v/'*_chron.dyalog' '*_CHRON_data_*'
- OS: ⎕SH 'find ./chron/',⍵,' -name ',s 
+ s←⊃v/'*_chron.dyalog' '*_data_*'
+ OS⍬: ⎕SH 'find ./chron/',⍵,' -name ',s 
  #.⎕CY'files' ⋄ Z←#.Files.Dir ⍵,'\',s ⋄ Z←(⍵,'\')∘,¨Z
  #.⎕EX¨'CompFiles' 'Files' 'TestFiles'
 }
 
-test←{⍺←10
+test←{⍺←1000
  n←⎕SE.SALT.Load './chron/tests/','_chron.dyalog',⍨⊃⊆⍵
  z←'#.chron.cmpx' ⎕NS⍨⍕n
- m←' '⍪⍨'⍝',↑specs,(~∘' ','←',∘⍕∘⍎ z,'.'∘,)¨↓n.⎕NL 2
+ m←' '⍪⍨'⍝',↑specs(~∘' ','←',∘⍕∘⍎ z,'.'∘,)¨↓n.⎕NL 2
  t←('_chron',⍨⊃⊆⍵)((⊢(⌿⍨)(⊣≡↑⍨∘⍴⍨)⍤1))n.⎕NL 2
  f←⊢↑[1]⍨1⊃⌈∘⍴⍨∘⍴
  g←1 putfile (⊂∘newname⊢),∘⊂m(f⍨⍪f)∘⍕⊣n.cmpx∘⍎z,'.',⊢
  ⍬≢⍴1⊃2↑⊆⍵:⍺g⍤1⊢t
  ⍺g⊢t⌷⍨¯1+1⊃⍵
 }
+
+load_data←{⍎⍤1⊢1↓¯1↓(⊢(⌿⍨)'⍝'≠⊃⍤1)'UTF-16'⎕UCS⍤1⊢↑10~⍨¨(10∘=⊂⊢)163 get ⍵}
+load_vars←{z←(⊢(⌿⍨)∘(∨/)'←'∘=)'UTF-16'⎕UCS⍤1⊢↑10~⍨¨(10∘=⊂⊢)163 get ⍵
+ ⍎⍤1⊢0 1↓z⌿⍨~∨/∧⌿'_chron_'=⍤¯1⊢(⍳7)⌽⍤¯1⊢z⍴⍨7,⍴z}
+
+⍝ Probability functions
+mean←+⌿÷≢
+var←×⍨∘mean-⍨∘mean×⍨
+var2←mean∘(×⍨)⊢-⍤¯1 15mean
+cov←×∘mean⍨∘mean-⍨∘mean×
+cov2←{mean(⍺-mean⍺)×(⍵-mean ⍵)}
+stdev←.5*⍨var
+meancomp←∘.-⍨∘mean÷.5*⍨∘.+⍨∘var÷≢
+sort←{⍵[⍋⍵]}
+unitab←{⍺←1 ⋄ ⍺<|∘meancomp⍵}
+unifreq←{⍺←1 ⋄ ((⍒⊣⌸)⌷⍤0 15,∘⊂⌸)mean ⍺<|meancomp ⍵}
+heat←⌊256×7○|
 
 :EndNamespace

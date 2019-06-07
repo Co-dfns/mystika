@@ -1,6 +1,8 @@
 ﻿⎕IO ⎕ML ⎕WX←0 1 3
 'cache' 'memo' ⎕CY 'dfns'
 
+wri←{ntie←{0::⎕SIGNAL ⎕EN ⋄ 22::⍵ ⎕NCREATE 0 ⋄ 0 ⎕NRESIZE ⍵ ⎕NTIE 0}⍺
+ size←⍵⎕NAPPEND ntie,⎕DR ⎕AV ⋄ 1:rslt←size⊣⎕NUNTIE ntie}
 vzz←0∊=∘⌊⍨∧1 ¯1 0∊⍨⍤15 0×
 Scn←{2>≢⍵:⍵ ⋄ ↑⊃(⊢,⍨∘⊂⍺⍺∘⊃)/(⊂∘⊂∘⊃∘⌽,⍨¯1∘↓)⊂⍤¯1⊢⍵}
 hex←{⍺←⌈/⌈2⍟1+,⍵ ⋄ '0123456789abcdef'[2⊥⍉(⊢((4,⍨⊢)⍴(4×⊢)↑⊣)∘⌈÷∘4∘≢),⍉(⍺⍴2)⊤,⍵]}
