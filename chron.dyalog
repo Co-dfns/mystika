@@ -1,9 +1,13 @@
 :Namespace chron
 
-cmpx←{⍺←⍬ ⋄ r c m←1 0 10(⊢+⊣×0=⊢)3↑⍺
+cmpx←{⍺←⍬ ⋄ r m c←1 50 0(⊢+⊣×0=⊢)3↑⍺
  f←{(2-c)∘⊃(⍎'{0<⍵:∇⍵-1⊣',⍵,'⋄⎕AI}⍺')-⎕AI}
  1{t←⍺f¨⍵ ⋄ m>(+/÷≢),t:(⍺×2)∇⍵
  ((⊢-0⌊⌊/∘,)t-⍺f'⍬')÷⍺×1000}(⊢⍴⍨r,⍴)⊆⍵}
+
+tmx←{⍺←⍬ ⋄ r m c←1 5 0(⊢+⊣×0=⊢)3↑⍺
+ f←{(2-c)∘⊃(⍎'{0<⍵:∇⍵-1⊣',⍵,'⋄⎕AI}⍺')-⎕AI}
+ (2*m){((⊢-0⌊⌊/∘,)(⍺f¨⍵)-⍺f'⍬')÷⍺×1000}(⊢⍴⍨r,⍴)⊆⍵}
 
 get←{
     ⍺←83                                ⍝ default: return 8-bit integers
@@ -62,15 +66,52 @@ load_vars←{z←(⊢(⌿⍨)∘(∨/)'←'∘=)'UTF-16'⎕UCS⍤1⊢↑10~⍨¨
 
 ⍝ Probability functions
 mean←+⌿÷≢
+hmean←≢÷+⌿∘÷
 var←×⍨∘mean-⍨∘mean×⍨
 var2←mean∘(×⍨)⊢-⍤¯1 15mean
 cov←×∘mean⍨∘mean-⍨∘mean×
 cov2←{mean(⍺-mean⍺)×(⍵-mean ⍵)}
 stdev←.5*⍨var
+zscore←stdev÷⍤¯1 15⍨⊢-⍤¯1 15 mean
+skew←mean 3*⍨zscore
+kurt←mean 4*⍨zscore
+entropy←(-⊢+.×⍟)(≢⊢)⌸÷≢
 meancomp←∘.-⍨∘mean÷.5*⍨∘.+⍨∘var÷≢
-sort←{⍵[⍋⍵]}
+sort←⍋⌷⍤0 15⊢
+freqtab←sort,∘≢⌸
 unitab←{⍺←1 ⋄ ⍺<|∘meancomp⍵}
 unifreq←{⍺←1 ⋄ ((⍒⊣⌸)⌷⍤0 15,∘⊂⌸)mean ⍺<|meancomp ⍵}
 heat←⌊256×7○|
+
+hyp←{1+(⊣×1+⊢)/⍵×⍤0 1⊢÷⌿×⌿(⍳⍺⍺)∘.+⍨(⊢⍴⍨2 2,1↓⍴)(0∘⌷⍪1⍪¯2∘↑)⍺}
+Lbet←{(0∘⌷⍺)÷⍨(⍵*0∘⌷⍺)×⍵(200 hyp)⍨(0∘⌷⍪∘⊖1+1 ¯1×[0]⊢)⍺}
+beta←1∘⌷×¯1!.++⍀
+I←Lbet÷∘beta⊣
+Lgam←{n←1+⍳100×⌈0.5*⍨⌈/,⍵÷⍺
+ (÷⍺)×(⍵*⍺)×⊃(⊣×1-⊢)/⊂⍤¯1⊢1⍪(n÷⍨⍤0 15⊢⍵)×⍤¯1⊢1-÷n+⍤0 15⊢⍺}
+Ugam←Lgam-⍨∘!¯1+⊣
+digam←{z←2*¯32 ⋄ (z÷⍨-⌿÷1∘⌷)!(z 0)+⍤0 15⊢¯1+⍵}
+ddigam←{z←2*¯16 ⋄ (×⍨digam⍵)-⍨((×⍨z)÷⍨-⌿÷1∘⌷)!(,∘-⍨z 0)+⍤0 15⊢¯1+⍵}
+
+erf←{((4×¯3○1)*-1÷2)×.5 Lgam ⍵*2}
+normcdf←{2÷⍨1+(×⍵)×erf ⍵÷2*0.5}
+chicdf←{(!1-⍨⍺÷2)÷⍨(2÷⍨⍺) Lgam 2÷⍨⍵}
+Fcdf←(2÷⍨⊣)I∘÷1+(1⌷⊣)÷⊢×0⌷⊣
+invgamcdf←{((0⌷⍺)Ugam⍤15 ¯1⊢⍵÷⍤15 ¯1⍨1⌷⍺)÷⍤¯1 15⊢!¯1+0⌷⍺}
+sinvgamcdf←⊣invgamcdf⊢(+⍤¯1 15)2⌷⊣
+gamcdf←{((0⌷⍺)Lgam⍤15 ¯1⊢⍵÷⍤¯1 15⊢1⌷⍺)÷⍤¯1 15⊢!¯1+0⌷⍺}
+invgampdf←{((*⌿⊖⍺)÷!¯1+0⌷⍺)×⍤15 ¯1⊢(*-⍵÷⍤15 ¯1⍨1⌷⍺)×⍵*⍤¯1 15⊢-1+0⌷⍺}
+gampdf←{((*⌿⊖⍺)×!¯1+0⌷⍺)÷⍤¯1 15⍨(*-⍵÷⍤¯1 15⊢1⌷⍺)×⍵*⍤¯1 15⊢¯1+0⌷⍺}
+
+invgam_mom1←2+×⍨∘mean÷var
+invgam_mom2←(⊢÷⍨3∘×+8+4×.5*⍨4∘+)×⍨∘skew
+invgam_mom3←(2∘×÷⍨30+7∘×+0.5*⍨150∘+×6∘+)kurt
+invgam_shift←⊣-∘mean⍨.5*⍨⊣×∘var⍨¯2+⊢
+invgam_mlec←(-mean∘⍟+∘⍟+⌿∘÷)⊣+⍤¯1 15invgam_shift
+invgam_mle1←⊢÷1+(invgam_mlec+×∘≢⍨-⍨∘⍟⍨∘digam⊢)÷1-⊢×∘ddigam⊢
+fit←{1⌊0⌈-⌿⍺ ⍺⍺⍤15 ¯1⊢⍉(⊢(∘.+⍤1)0.5 ¯0.5∘.×⍨∘(|-⌿)2↑⍉)∪∘sort⍤1∘⍉⍵}
+Evals←{(≢⍵)×⍺ ⍺⍺ fit ⍵}
+Ovals←1⌷∘⍉sort∘freqtab⍤1∘⍉
+good←{(Ovals ⍵)(+⌿⊢÷⍨2*⍨-)⍺ ⍺⍺ Evals ⍵}
 
 :EndNamespace
