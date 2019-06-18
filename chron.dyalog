@@ -79,6 +79,7 @@ entropy←(-⊢+.×⍟)(≢⊢)⌸÷≢
 meancomp←∘.-⍨∘mean÷.5*⍨∘.+⍨∘var÷≢
 sort←⍋⌷⍤0 15⊢
 freqtab←sort,∘≢⌸
+chart←{⍺←10 ⋄ (⊢∘.(' x'⊃⍨=)⍨∘⍳1+⌈/)(⌊⍺×⊢-⌊/)mean zscore⍤1⊢⍵}
 unitab←{⍺←1 ⋄ ⍺<|∘meancomp⍵}
 unifreq←{⍺←1 ⋄ ((⍒⊣⌸)⌷⍤0 15,∘⊂⌸)mean ⍺<|meancomp ⍵}
 heat←⌊256×7○|
