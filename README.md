@@ -18,8 +18,16 @@ Here are the verbs, nouns, adverbs, and conjunctions provided by this project.
     bf ⍝ Bignum function
     NBA ⍝ Nested bignum Array
 
-A bignum array is an array of bignums that is stored as an array of 32-bit integers where the first axis is fixed to the number of places for each number. For each BA, the first element indicates
-the base, which must have the form B for a real bignum or 0JB for a complex bignum where B<2*16, the second element indicates the number of places that the radix point is shifted to the left (a negative number indicates that the radix point is shifted to the right), and the third element is 1 for a negative real bignum and zero otherwise (even in the complex case).
+A bignum array is an array where the 0th axis is used for the places of a number in a given base, and the first 3 elements of that axis are reserved for metadata.
+The metadata has the following format:
+
+* the 0th element specifies the base, which must have the form B for a real bignum or 0JB for a complex bignum where B<2*16
+* the 1st element indicates the number of places that the radix point is shifted to the left (a negative number indicates that the radix point is shifted to the right)
+* the 2nd element is 1 for a negative real bignum and zero otherwise (even in the complex case).
+
+The remaining elements provide the base B expansion of the abslute value of the number in the real case (i.e. B complement notation is not used), and the base 0JB expans of the number in the complex case.
+
+A bigpoly array is a special type of bignum array in which the 1st axis is reserved for the coefficients of a polynomial in one variable, say x, such that the ith element is the coefficient of the ith power of x.
 
 ### APL Primitive Functions
 
