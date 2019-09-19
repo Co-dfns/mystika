@@ -72,7 +72,7 @@ sub←{⍺←⊢ ⋄ 1≡⍺1: neg⍵ ⋄ m←⍺ com ⍵
  
 mul←{a←r2c⍣((isr⍵)<isr⍺)⊢⍺ ⋄ w←r2c⍣((isr⍺)<isr⍵)⊢⍵
  m←((0J1*(isr⍺)⍲isr⍵)×(|⊃⍺)⌊|⊃⍵)⍪((1⌷⍺)+1⌷⍵),[¯.5](((isr⍺)∧isr⍵)∧(2⌷⍺)≠2⌷⍵)
- (¯3+≢⍵)pla cry m⍪¯1⊖⌊0.1J0.1+ift⊃×⍤¯1/fft¨(-2*⌈2⍟¯7+2×≢⍵)↑¨3∘↓¨a w}
+ (¯3+≢⍵)pla cry m⍪¯1⊖⌊0.1J0.1+ift⊃×⍤¯1/fft¨(-2*2+⌊2⍟¯3+≢⍵)↑¨3∘↓¨a w}
 di0←{k←⌊16÷2⍟|b←⊃bas ⍵ ⋄ c←~isr ⍵
  (k+2)pla⍣c⊢(0⌷⍵)⍪(k+(¯3+≢⍵)-1⌷⍵)⍪(2⌷⍵)⍪(b⍴⍨2+k+4×c)⊤⌊(b*2×k)÷b⊥k↑3∘↓ ⍵}
 di1←{k←2×¯3+≢⍵ ⋄ (k pla ⍺)(⊢mul((0⌷⍵)⍪(-k+2)↑2⍴⍨⍴1↑⍵)sub mul)k pla ⍵}
@@ -88,12 +88,11 @@ sq1←{k←2×¯3+≢⍵ ⋄ (k pla ⍺)(di2 div add ⊢)k pla ⍵}
 sqr←{k←1+⌈2⍟(¯3+≢⍵)÷⌊32÷2⍟|⊃bas ⍵
  (0∘⌷⍪~∘zer(×⍤15 ¯1)1↓¯3∘+∘≢pla ⊢ sq1⍣k sq0)(ovr mov⊢)r2c⍣(∨/,2⌷⍵)⊢⍵}
 exp←{b←⊃bas⍵ ⋄ k←2⍟|b ⋄ s←(⌈/∘⌈k×0,∘,1+pla-ovr)⍵
- r←(1⍳⍨⊢<∘(⊢+∘(+\)(|b)∘⍟)1+⍳)(pla⍵)+⌈s÷k ⋄ n←3+(pla⍵)+⌈s÷k ⋄ z←b,1↑⍨-2+n
- (pla ⍵)pla mul⍨⍣s⊢z add mul∘(z∘add)red(⊢div out (1+⍳r)big⍨⊢)di2⍣s⊢n pla⍵}
-snh←pla pla∘(di2 exp sub exp∘sub)≢pla⊢
+ r←(1⍳⍨⊢<∘(⊢+∘(+\)(|b)∘⍟)1+⍳)(pla⍵)+⌈s÷k ⋄ n←3+(pla⍵)+⌈s÷k ⋄ z←par b,1↑⍨-2+n
+ cry((⊃⍵)@0)(pla ⍵)pla mul⍨⍣s⊢z add mul∘(z∘add)red(⊢div out∘par(1+⍳r)big⍨⊢)di2⍣s⊢par n pla⍵}
+snh←pla pla (di2 exp sub exp∘sub)∘(≢pla⊢)
 cis←{(pla⍵)pla exp r2c⍣(isr⍵)(≢pla 2∘↑⍪0⍪0J1×sg0)⍵}
-tan←{z←(0J1×|⊃bas⍵)⍪1↑⍨-2+≢⍵
- (pla⍵)pla rea⍣(isr⍵)cry(3∘↑⍪0J1×3∘↓)(z∘sub div z∘add)cis(cry 3∘↑⍪2×sg0)(≢pla⊢)⍵}
+tan←{z←par (0J1×|⊃bas⍵)⍪1↑⍨-2+≢⍵ ⋄ (pla⍵)pla rea⍣(isr⍵)cry(3∘↑⍪0J1×3∘↓)(z∘sub div z∘add)cis(cry 3∘↑⍪2×3∘↓)(≢pla⊢)⍵}
 sin←{(pla⍵)pla rea⍣(isr⍵)(cry 3∘↑⍪0J¯1×3∘↓)(di2 cis sub cis∘sub)(≢pla⊢)⍵}
 
 cat←⍪⍤¯1
