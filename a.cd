@@ -201,29 +201,28 @@ e05←⍉'E '(⍎~)⍤1⍨'0',⍨'.',⍨'E'(⍳⍨∘,↓⊢)⍤1⊢
 enc←{¯1>≡⍵:∇↑⍵ ⋄ ~'J'∊∊⍵:(e05(-⍨@1)en3∘e04)⍵ ⋄ r i←(∇ e0r ⍵)(∇ e0i ⍵)
  r i←r i pla⍨¨3+⌈/,r(en4⌈en4⍨)i ⋄ (r2c r) add (r2c 3∘↑⍪0J1×3∘↓)i}
 
+is1←¯1∘↓∧∘zer⍨1=⊢⌿
 odd←{0=2|bas⍵: 2|⊢⌿⍵ ⋄ ≠⌿2|3↓⍵}
 pr0←{⍵∊0 1:⍬⋄⎕IO←1⋄⍬(⍵{⍺⍺<×⍨⊃⌽⍺:⍺,⍵⋄(⍺,N)∇⍵/⍨0≠⍵|⍨N←⊃⍵})1↓⍳⍵}
 ∆pr ← cache''
 pr1←pr0 memo ∆pr
-pr2←{k←(pla⍵)⌊⌊32÷2⍟bas ⍵ ⋄ ((k≥pla-top)×bas⊥k↑⍨∘-⍨⊢)⍵}
-pr3←{0∊⍴⍵:⍵ ⋄ ⍺=2: ⍵/⍨(2=pr2⍵)∨odd ⍵ 
- b←bas ⍵ ⋄ ⍵/⍨(⍺=pr2⍵)∨0≠(⍺|⊣+b×⊢)⌿⊖3↓⍵}
-mr0←{0∊⍴⍵:⍵ ⋄ z←⍵ sub ⍵ big 1
- ⍵/⍨((0∘≠∧⍺∘≥)pr2⍵)∨(z rav ⍵ big 1)eps⍨abs(flo di2 z)(⍵ mex)⍵ big ⍺}
+pr2←{k←-(pla⍵)⌊⌊32÷2⍟bas ⍵ ⋄  ⍵/⍨(k∘↓∧∘zer⍨⍺∊⍨bas⊥k∘↑)⍵}
+pr3←{0∊⍴⍵:⍵ ⋄ ⍺=2: ⍵/⍨odd ⍵ ⋄ b←bas ⍵ ⋄ ⍵/⍨0≠(⍺|⊣+b×⊢)⌿⊖3↓⍵}
+mr0←{0∊⍴⍵:⍵ ⋄ ⍵/⍨is1 abs(flo di2 ⍵ sub ⍵ big 1)(⍵ mex)⍵ big ⍺}
 mr1←{0∊⍴⍵:⍵ ⋄ ⊃mr0/(2+⊃?/0 ¯2+⍺),⊂⍵}
 mrp←{⍺←(2∘⍟,⍨∘⌈⍨2××⍨)(⌈/∘,2∘⍟∘bas×pla-top)⍵
- ⍺mr1⊃pr3/(⌽pr1 1⊃⍺),⊂1(⊢(/⍨∘~)big⍨eps⍨⊢)⍵}
+ z←⌽pr1 1⊃⍺ ⋄ (z pr2 ⍵),⍺mr1⊃pr3/z,⊂⍵/⍨~is1⍵}
+
 rp0←mrp∘(0@1)(⊢(/⍨)leq )∘rol
 rp1←{~0∊⍴⍺⍺: (pla⍵)pla 0sqd⍺⍺ ⋄ ⍺←⊢ ⋄ ⍺((⍺rp0⍵)∇∇)⍵}
 rpr←{⍺←⊢ ⋄ b←bas ⍵ ⋄ n←(⌈2⍟b)×pla ⍵ ⋄ ⍺(⍬ rp1)⊢n rho ⍵}
 
-sp0←{0∊⍴⍵:⍵ ⋄ ⍺=2: ⍵/⍨∧⌿(2=pr2⍵)∨odd⍵
- b←bas⍵ ⋄ ⍵/⍨∧⌿(⍺=pr2⍵)∨0≠(⍺|+∘(b∘×))⌿⊖sg0⍵}
-sp1←{0∊⍴⍵:⍵ ⋄ z←⍵ sub ⍵ big 1
- ⍵/⍨∧⌿(⍺≥pr2⍵)∨(z rav ⍵ big 1)eps rop 1⍨abs(flo di2 z)(⍵ mex)⍵ big ⍺}
-sp2←{0∊⍴⍵:⍵ ⋄ 0sqd⊃sp1/(2+⊃?/0 ¯2+⍺),⊂⍵}
-sgp←{⍺←(2∘⍟,⍨∘⌈⍨2××⍨)(⌈/∘,1+2∘⍟∘bas×pla-top)⍵
- ⍺sp2⊃sp0/(⌽pr1 1⊃⍺),⊂1(⊢(/⍨)∘(∧⌿~)big⍨eps⍨⊢)(⊢,[.5]big∘1 add 3∘↑⍪2×3∘↓)⍵}
+sp0a←{0∊⍴⍵:⍵ ⋄ ⍺=2: ⍵/⍨∧⌿odd⍵ ⋄ b←bas⍵ ⋄ ⍵/⍨∧⌿0≠(⍺|+∘(b∘×))⌿⊖sg0⍵}
+sp0b←{k←-(pla ⍵)⌊⌊32÷2⍟bas ⍵ ⋄ ⍵/⍨∧⌿(k∘↓∧∘zer⍨⍺∊⍨bas⊥k∘↑)⍵}
+sp1←{0∊⍴⍵:⍵ ⋄ z←⍵ sub ⍵ big 1 ⋄ ⍵/⍨∧⌿is1 abs(flo di2 z)(⍵ mex)⍵ big ⍺}
+sp2←{0∊⍴⍵:⍵ ⋄ ⊃sp1/(2+⊃?/0 ¯2+⍺),⊂⍵}
+sgp←{⍺←(2∘⍟,⍨∘⌈⍨2××⍨)(⌈/∘,1+2∘⍟∘bas×pla-top)⍵ ⋄ z←⌽pr1 1⊃⍺ ⋄ w←(⊢,[.5]big∘1 add 3∘↑⍪2×3∘↓)rav⍵ ⋄ 0 sqd (z sp0b w),⍺sp2⊃sp0a/z,⊂w/⍨∧⌿~is1 w}
+
 sp3←sgp∘(0@1)(⊢(/⍨)leq )∘rol
 sp4←{~0∊⍴⍺⍺: (pla⍵)pla 0sqd⍺⍺ ⋄ ⍺←⊢ ⋄ ⍺((⍺ sp3 ⍵)∇∇)⍵}
 rsg←{⍺←⊢ ⋄ b←bas ⍵ ⋄ n←(⌈2⍟b)×pla ⍵ ⋄ ⍺(⍬ sp4)⊢n rho ⍵}
