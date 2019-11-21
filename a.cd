@@ -90,7 +90,7 @@ mu0←{n←-2*⌈2⍟(pla ⍺)+pla⍵ ⋄ f←fft n↑3↓ch0
 mul←⌈∘pla⍨∘pla pla mu0
 di0←{k←⌊16÷2⍟|b←bas ⍵ ⋄ ((pla⍵)-k+1⌷⍵)(+@1)((5+k)⍴⊃⍵)big(×¯1*2⌷⍵)÷b⊥k↑3↓⍵}
 di1←⊢(⊣mul⊢sub⍨2big⍨⊢)⊢mu0 pla⍨∘pla
-in0←{k←1+⌈2⍟(pla⍵)÷⌊16÷2⍟|bas ⍵ ⋄ (pla pla(⊢di1 pop k di0))omv⍵}
+in0←{k←0⌈1+⌈2⍟(pla⍵)÷⌊16÷2⍟|bas ⍵ ⋄ (pla pla(⊢di1 pop k di0))omv⍵}
 ∆in ← cache''
 inv←in0 memo ∆in
 div←{⍺←⊢ ⋄ 1≡⍺1: inv⍵ ⋄ ⍺ mul inv⍵}
