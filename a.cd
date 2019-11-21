@@ -99,7 +99,7 @@ di2←{0≠2|bas ⍵: (⊢div big∘2)⍵
 sq0←{k←⌊32÷2⍟|b←bas ⍵
  (⌊2÷⍨1⌷⍵)+@1⊢(k⍴⊃⍵)big .5*⍨(zer⍵)+(¯1*2⌷⍵)×b⊥((2|1∘⌷)⊖0⍪3∘↓)k pla⍵}
 sq1←{k←2×pla⍵ ⋄ (k pla ⍺)(di2 div add ⊢)k pla ⍵}
-sqr←{k←1+⌈2⍟(pla⍵)÷⌊32÷2⍟|bas ⍵
+sqr←{k←0⌈1+⌈2⍟(pla⍵)÷⌊32÷2⍟|bas ⍵
  (0∘⌷⍪~∘zer(×⍤15 ¯1)1↓pla pla ⊢ sq1 pop k sq0)⍵}
 exp←{b←bas⍵ ⋄ k←2⍟|b ⋄ s←(⌈/∘⌈k×0,∘,1+pla-ovr)⍵
  r←(1⍳⍨⊢<∘(⊢+∘(+\)(|b)∘⍟)1+⍳)(pla⍵)+⌈s÷k ⋄ n←3+(pla⍵)+⌈s÷k ⋄ z←par b,1↑⍨-2+n
